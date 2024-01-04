@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定边七中</title>
+    <style>
+      .container {
+      position: relative; /* 创建一个相对定位的容器 */
+    }
+    .left-top-image {
+      position: absolute; /* 绝对定位图片 */
+      top: 0; /* 让图片距离顶部为0 */
+      left: 0; /* 让图片距离左侧为0 */
+      width: 70px; /* 设置图片宽度 */
+      height: 70px; /* 设置图片高度 */
+      object-fit: cover; /* 保持图片纵横比，并填充给定尺寸（可选） */
+    }
+    body {
+            background-image: url("https://s2.loli.net/2023/12/31/7lKJdWin3MDPURH.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh; /* 确保背景至少覆盖整个视口高度 */
+        }
+    body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* 确保内容至少填满整个视口高度 */
+        }
+
+        .main-content {
+            flex-grow: 1; /* 主要内容区域自动填充剩余空间 */
+            /* 这里添加其他你想要的样式 */
+        }
+
+        .footer-text {
+            background-color: #f5f5f5; /* 可选：为页脚添加背景颜色 */
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+   <img src="https://s2.loli.net/2023/12/24/mnw49oDQ6Ec2Vgt.png" alt="校徽" class="left-top-image">
+   <p style="text-align: center; font-size: 24px;">定边七中 道法抽取系统</p>
+    <div style="text-align: center;">
+    <button onclick="draw()">抽选</button>
+</div>
+    <p id="result">等待抽选...</p>
+    <script>
+        var participants = ['为什么要养成亲社会行为？', '如何养成亲社会行为？', '个人与社会的关系？', '如何理解人的成长是不断社会化的过程？', '主要的社会关系有哪几种？', '感受社会生活有哪些意义？', '网络对我们生活日常有哪些积极影响？', '网络有哪些消极影响？', '如何理解理性参与网络生活？', '如何传播网络正能量？', '社会秩序的作用？', '网络规则的作用？', '自由与规则的关系是怎样？', '我们应该如何自觉遵守规则', '我们如何维护和改进规则', '为什么要积极改进规则', '为什么要尊重他人', '如何尊重他人', '为什么要文明有礼', '怎样做一个文明有礼的人', '诚信的含义', '为什么要诚信', '如何践行诚信', '违法行为包括哪几类', '如何预防犯罪', '遇到侵害如何依法求助', '为什么要勇有谋应对违法犯罪', '如何有勇谋应对违法犯罪', '刑法作用', '犯罪的基本特', '诉讼的类型', '责任的来源', '角色与责任的关系是怎样的', '对自己负责的表现和意义', '如何对他人负责', '承担责任代价与回报', '如何做一个负责的人', '我们应该如何对待可以选择的责任', '我们应该如何对待不可推卸的责任', '关爱他人的意义', '如何关爱他人', '服务社会的意义', '如何服务社会和奉献社会', '国家利益和人民利益的关系', '国家利益的内涵', '国家核心利益的基本内容', '如何树立维护国家利益意识', '如何捍卫国家利益', '国家利益和集体利益和个人利益的区别和联系', '为什么要维护国家安全总体国家安全观内涵', '如何构建总体国家安全观', '坚持总体国家安全观的背景和原因', '如何维护国家安全', '我国武装力量的性质和任务是什么', '为什么要坚持党对人民军队的绝对领导', '如何全面推进国防和军队现代化', '我国取得了哪些令世界瞩目的伟大成就', '我国在发展过程中面临哪些问题', '我国真正采取哪些措施解决发展中的问题', '劳动的作用', '为什么每个劳动者都值得我们尊重学习', '为什么要发扬实干精神', '青少年应该如何发扬实干精神']; // 将名单存储在JavaScript数组中
+        function draw() {
+            var result = participants[Math.floor(Math.random() * participants.length)];
+            document.getElementById('result').innerText = '所考察的知识点为：' + result;
+        }
+        function reset() {
+            document.getElementById('result').innerText = '抽取...';
+        }
+    </script>
+</body>
+<body>
+  <div class="main-content">
+  </div>
+  <div class="footer-text">
+    © 定边七中 2024
+</html>
