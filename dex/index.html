@@ -47,6 +47,19 @@
             font-size: 24px;
             font-weight: bold;
         }
+        body {
+  max-width: 1200px; /* 设置最大宽度，超过这个宽度时页面不再扩展 */
+  margin: 0 auto;
+  padding: 0 20px; /* 两边留白以适应小屏幕 */
+}
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  /* 在768px到1200px之间的屏幕，可以调整样式 */
+}
+
+@media screen and (max-width: 767px) {
+  /* 当屏幕宽度小于等于767px时，应用移动端或其他窄屏设备的样式 */
+}
     </style>
 </head>
 <body>
