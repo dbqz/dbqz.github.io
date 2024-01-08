@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <title>定边县第七中学</title>
+        <style type="text/css">
+            * {
+                padding: 0px;
+                margin: 0px;
+            }
+ 
+            body {
+                /* background-color: chartreuse; */
+            }
+ 
+            .head_1 {
+                width: 100%;
+                height: 100px;
+                padding: 8px 0px 4px;
+                background-color: #3d3bb8;
+                position: fixed;
+                /* border: 1px solid red; */
+            }
+ 
+            .content_1 {
+                width: 78%;
+                height: 100px;
+                margin: auto;
+                /* border: 1px solid red; */
+            }
+ 
+            .logo {
+                float: left;
+                padding-top: 10px;
+                width: 10%;
+                /* border: 1px solid red; */
+            }
+ 
+            .logo>img {
+                width: 100%;
+            }
+ 
+            .menu {
+                float: left;
+                width: 70%;
+                height: 100px;
+                /* border: 1px solid red; */
+            }
+ 
+            .menu_top,
+            .menu_foot {
+                float: left;
+                width: 100%;
+                height: 50%;
+            }
+ 
+            .search {
+                float: right;
+                width: 32%;
+                height: 70%;
+                border-radius: 18px;
+                background-color: #ffffff;
+            }
+ 
+            #search_border {
+                float: left;
+                font-size: 5px;
+                width: 72%;
+                height: 100%;
+                margin: 4% 0% 4% 9%;
+                border: none;
+            }
+ 
+            #search_button {
+                float: left;
+                width: 15px;
+                height: 15px;
+                margin: 4% 0% 4% 3%;
+                border: none;
+            }
+ 
+            .nav {
+                list-style: none;
+                margin: 1.5% auto 0%;
+            }
+ 
+            .nav>li {
+                float: left;
+                margin-left: 3.4%;
+                padding: 0% 0% 2%;
+                position: relative;
+            }
+            
+            [class^="nav_"]>a {
+                color: #ffffff;
+                font-size: 14px;
+                text-decoration: none;
+            }
+            
+            [class^="nav_"]>a:hover {
+                opacity: 0.5;
+            }
+ 
+            [class^="child"] {
+                list-style: none;
+                top: 40px;
+                left: -40px;
+                position: absolute;
+                display: none;
+            }
+            
+            [class^="child_2_"] {
+                left: 140.5px;
+                top: 0px;
+            }
+            
+            .child_2_2 {
+                top: 50px;
+            }
+ 
+            [class^="child"]>li {
+                width: 120px;
+                height: 30px;
+                padding: 10px 10px;
+                line-height: 30px;
+                text-align: center;
+                background-color: #ffffff;
+            }
+            
+            [class^="child_2_"]>li {
+                width: 160px;
+            }
+            
+            [class^="child"] a {
+                color: #000;
+                font-size: 14px;
+                text-decoration: none;
+            }
+            
+            [class^="child"] a:hover {
+                color: #3d3bb8;
+            }
+ 
+            li:hover>[class^="child"],
+            li:hover>[class^="block"] {
+                display: block;
+            }
+ 
+            .child_4 {
+                left: -55px;
+            }
+ 
+            .child_4>li {
+                width: 150px;
+            }
+ 
+            [class^="block"] {
+                border-bottom: 10px solid white;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                top: 30px;
+                left: 20px;
+                position: absolute;
+                display: none;
+            }
+            
+            .banner_picture {
+                width: 100%;
+            }
+            
+            .news_text {
+                float: left;
+                width: 100%;
+                height: 90px;
+                margin-top: 25px;
+                text-align: center;
+                position: relative;
+            }
+            
+            .news_text>span {
+                font-size: 40px;
+                color: #E9E9F9;
+                left: 165px;
+                top: 10px;
+                font-weight: bold;
+                position: absolute;
+                z-index: -1;
+            }
+            
+            .news_title {
+                font-size: 23px;
+                color: #000000;
+                left: 182px;
+                top: 32px;
+                position: absolute;
+            }
+ 
+            .under_line_1 {
+                background-color: #3d3bb8;
+                border-radius: 3px;
+                width: 60px;
+                height: 6px;
+                left: 195px;
+                top: 72px;
+                position: absolute;
+            }
+            
+            .under_line_2 {
+                background-color: #3d3bb8;
+                border-radius: 3px;
+                margin: 1% auto 0%;
+                width: 60px;
+                height: 6px;
+            }
+            
+            .section_2 {
+                /* background-color: aqua; */
+                float: left;
+                padding: 4% 12% 2%;
+                background-image: url("./img/home_index1_bg.png");
+                background-size: 62%;
+                background-repeat: no-repeat;
+                background-position: right;
+            }
+            
+            .section_2_left {
+                float: left;
+                width: 40%;
+                height: 100%;
+                /* background-color: coral; */
+            }
+            
+            .section_2_left>img {
+                width: 100%;
+                margin-top: 75px;
+            }
+            
+            .section_2_right {
+                float: left;
+                width: 60%;
+                height: 100%;
+                /* background-color: yellow; */
+            }
+            
+            [class^="subject"] {
+                float: right;
+                height: 35px;
+                font-size: 20px;
+                color: #999999;
+                margin-left: 40px;
+                padding-bottom: 40px;
+            }
+            
+            [class^="subject"]:hover {
+                color: #000000;
+            }
+            
+            .subject_3 {
+                color: #000000;
+            }
+            
+            .subject_2:hover~.subject_3 {
+                color: #999999;
+            }
+            
+            .subject_1:hover~.subject_3 {
+                color: #999999;
+            }
+            
+            [class^="box"] {
+                float: left;
+                width: 96%;
+                margin-left: 30px;
+                display: none;
+            }
+            
+            [class^="box"][name="1_box"] {
+                display: block;
+            }
+            
+            .section_2_right>.subject_2:hover~[class^="box"][name="1_box"] {
+                display: none;
+            }
+            
+            .section_2_right>.subject_2:hover~[class^="box"][name="2_box"] {
+                display: block;
+            }
+            
+            .section_2_right>.subject_1:hover~[class^="box"][name="1_box"] {
+                display: none;
+            }
+            
+            .section_2_right>.subject_1:hover~[class^="box"][name="3_box"] {
+                display: block;
+            }
+            
+            [class^="new_line"] {
+                float: left;
+                width: 100%;
+                margin-bottom: 18px;
+            }
+            
+            a:hover .line_top {
+                color: #3d3bb8;
+            }
+            
+            .line_left {
+                float: left;
+                width: 51px;
+                height: 73px;
+                color: #ffffff;
+                margin-bottom: 4px;
+                background-color: #3d3bb8;
+            }
+            
+            .line_right {
+                float: left;
+                height: 75px;
+                margin-left: 20px;
+            }
+            
+            .day {
+                margin: 6px 6px;
+                text-align: center;
+                font-size: 28px;
+            }
+            
+            .year_month {
+                margin: 0px 3px;
+                text-align: center;
+                font-size: 5px;
+            }
+            
+            .line_top {
+                float: left;
+                width: 90%;
+                height: 20px;
+                margin-left: 15px;
+                font-size: 15px;
+                font-weight: bold;
+                color: #000;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+            
+            .line_bottom {
+                float: left;
+                width: 90%;
+                height: 40;
+                font-size: 14px;
+                color: #666666;
+                margin-top: 17px;
+                margin-left: 15px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+            
+            .more {
+                margin-top: 20px;
+                float: right;
+            }
+            
+            .more>a {
+                color: #999999;
+                font-size: 12px;
+                text-decoration: none;
+            }
+            
+            .more>a:hover {
+                color: #3d3bb8;
+            }
+            
+            .section_3 {
+                float: left;
+                width: 100%;
+                height: 770px;
+                text-align: center;
+                background-image: url("./img/home_index2_bg.png");
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            
+            .video_title {
+                margin-top: 35px;
+                color: #e9e9f9;
+                font-size: 25px;
+            }
+            
+            .video_text {
+                font-size: 23px;
+                color: #000000;
+            }
+            
+            .video_play {
+                width: 100%;
+                margin: 30px auto 0px;
+                padding-bottom: 20px;
+            }
+            
+            .video_play>video {
+                width: 70%;
+                cursor: pointer;
+                object-fit: fill;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="head_1">
+            <div class="content_1">
+                <div class="logo">
+                    <img src="https://s2.loli.net/2024/01/06/XFsWlhIJYnHqaRM.png" alt="logo">
+                </div>
+                <div class="menu">
+                    <div class="menu_top">
+                        <div class="search">
+                            <form action="">
+                                <input type="text" name="" id="search_border" placeholder="请输入搜索内容">
+                                <button id="search_button">
+                                    <svg t="1679578244033" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                        xmlns="http://www.w3.org/2000/svg" p-id="1044">
+                                        <path
+                                            d="M418.91 93.09c179.66 0 325.82 146.16 325.82 325.82 0 74.59-24.74 144.9-71.53 203.33l-22.66 28.29-28.3 22.66c-58.43 46.8-128.74 71.53-203.33 71.53-179.66 0-325.82-146.16-325.82-325.82 0-179.65 146.16-325.81 325.82-325.81m0-93.09C187.55 0 0 187.55 0 418.91s187.55 418.91 418.91 418.91c99.01 0 189.83-34.54 261.53-91.97 0.34 0.37 0.45 0.86 0.81 1.21l263.3 263.3c9.09 9.09 21 13.63 32.91 13.63s23.82-4.54 32.91-13.63c18.18-18.18 18.18-47.65 0-65.82l-263.3-263.3c-0.36-0.36-0.85-0.46-1.21-0.81 57.43-71.7 91.97-162.52 91.97-261.53C837.82 187.55 650.27 0 418.91 0z"
+                                            fill="#2c2c2c" p-id="1045"></path>
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="menu_foot">
+                        <ul class="nav">
+                            <li class="nav_1"><a href="#">首页</a></li>
+                            <li class="nav_2">
+                                <a href="https://mp.weixin.qq.com/s/W1Mbx1Z_JmiDT0JA_rOq_g">学校概况</a>
+                                <div class="block_1"></div>
+                                <ul class="child_1">
+                                    <li><a href="https://mp.weixin.qq.com/s/jiv37lmBjsChJm0A2lbG9Q">学校简介</a></li>
+                                    <li><a href="https://mp.weixin.qq.com/s/Y3NvU3STI6_I5d909abpEw">现任领导</a></li>
+                                    <li><a href="https://s2.loli.net/2024/01/07/weBxR9fvpZiEdmU.jpg">师资队伍</a></li>
+                                    <li><a href="https://mp.weixin.qq.com/s/W1Mbx1Z_JmiDT0JA_rOq_g">校园风光</a></li>
+                                    <li><a href="https://mp.weixin.qq.com/s/82-XvwJoXo_FwB4PPsVzpg">七中校规</a></li>
+                                    <>
+                                </ul>
+                            </li>
+                            <li class="nav_3"><a href="#">信息公开专栏</a></li>
+                            <li class="nav_4">
+                                <a href="">机构设置</a>
+                                <div class="block_2"></div>
+                                <ul class="child_2">
+                                    <li>
+                                        <a href="#">行政部门</a>
+                                        <ul class="child_2_1">
+                                            <li><a href="">党政办公室</a></li>
+                                            <li><a href="#">学生工作部（处）</a></li>
+                                            <li><a href="#">人事处</a></li>
+                                            <li><a href="#">党委组织部</a></li>
+                                            <li><a href="#">校团委</a></li>
+                                            <li><a href="#">校工会（统战部）</a></li>
+                                            <li><a href="#">后勤保卫处</a></li>
+                                            <li><a href="#">教务处</a></li>
+                                            <li><a href="#">图书服务</a></li>
+                                            <li><a href="#">教室教学发展中心</a></li>
+                                            <li><a href="#">体育与艺术中心</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">二级学院</a>
+                                        <ul class="child_2_2">
+                                            <li><a href="#">商学院</a></li>
+                                            <li><a href="#">信息工程学院</a></li>
+                                            <li><a href="#">设计学院</a></li>
+                                            <li><a href="#">传媒学院</a></li>
+                                            <li><a href="#">人文学院</a></li>
+                                            <li><a href="#">基础课教学部</a></li>
+                                            <li><a href="#">马克思主义学院</a></li>
+                                            <li><a href="#">继续教育学院</a></li>
+                                            <li><a href="#">国际教育学院</a></li>
+                                            <li><a href="#">乡村振兴学院</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav_5"><a href="#">党建网</a></li>
+                            <li class="nav_6"><a href="/dex/index.html">道法系统</a></li>
+                            <li class="nav_7">
+                                <a href="#">招生就业</a>
+                                <div class="block_3"></div>
+                                <ul class="child_3">
+                                    <li><a href="#">招生网</a></li>
+                                </ul>
+                            </li>
+                                <ul class="child_4">
+                                    <li><a href="#">数字图书资源</a></li>
+                                    <li><a href="#">图书系统</a></li>
+                                    <li><a href="#">资产系统</a></li>
+                                    <li><a href="#">在线教学平台</a></li>
+                                    <li><a href="#">京广图书</a></li>
+                                    <li><a href="#">五车图书</a></li>
+                                    <li><a href="#">学工管理</a></li>
+                                    <li><a href="#">数字化实习实训平台</a></li>
+                                    <li><a href="#">实训平台</a></li>
+                                    <li><a href="#">校友系统</a></li>
+                                    <li><a href="#">心理测评</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section_1">
+            <img class="banner_picture" src="https://s2.loli.net/2024/01/06/tpygDGoeLbj1sY9.jpg" alt="二十大图片">
+        </div>
+        <div class="section_2">
+            <div class="section_2_left">
+                <img src="https://s2.loli.net/2024/01/07/weBxR9fvpZiEdmU.jpg" alt="学校大门">
+                <div class="news_text">
+                    <span>NEWS</span>
+                    <div class="news_title">新闻头条</div>
+                    <div class="under_line_1"></div>
+                </div>
+            </div>
+            <div class="section_2_right">
+                <div class="subject_1">学院通告</div>
+                <div class="subject_2">部门动态</div>
+                <div class="subject_3">新闻头条</div>
+                <div class="box_1" name="1_box">
+                    <div class="new_line_1">
+                        <a href="https://mp.weixin.qq.com/s/PtBg5AdTurxBlmKxhZBOAw">
+                            <div class="line_left">
+                                <div class="day">7</div>
+                                <div class="year_month">2024.1.7</div>
+                            </div>
+                            <div class="line_rignt">
+                                <div class="line_top">学思践悟&nbsp;全面提升师生数字化素养 促进教育教学高质量发展——定边县第七中学迎接市级智慧校园创建评估验收</div>
+                                <div class="line_bottom">2024年1月3日下午，定边县第七中学迎来了由榆林市教育技术中心王国文、榆林市实验小学副校长惠保平及榆林市教育技术中心黄斌老师组成的智慧校园验收评估专家组。专家组在定边县教体局工会主席刘午亭和定边县电化教育中心主任刘银堂的陪同下，对学校的智慧校园创建工作进行了评估验收。</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="new_line_2">
+                        <a href="">
+                            <div class="line_left">
+                                <div class="day">5</div>
+                                <div class="year_month">2024.1.5</div>
+                            </div>
+                            <div class="line_rignt">
+                                <div class="line_top">2023一2024 学年度第一学期心理健康教育讲座</div>
+                                <div class="line_bottom">心理健康教育是学校全面发展教育的重要组成部分，是素质教育的重要内容。临近考试，为缓解学生的焦虑情绪，减轻学生们的学业压力，提升心理健康水平，培养学生面对挑战的积极态度和应对能力。我校德育处于2023年12月26日下午第五节班会课组织开展了以“与压力共舞 让青春飞扬”为主题的心理健康教育讲座。</div>
+                            </div>
+                        </a>                        
+                    </div>
+                    <div class="new_line_3">
+                        <a href="#">
+                            <div class="line_left">
+                                <div class="day">1</div>
+                                <div class="year_month">2024.1.1</div>
+                            </div>
+                            <div class="line_rignt">
+                                <div class="line_top">欢声笑语庆元旦 载歌载舞迎新年——定边县第七中学2024年庆元旦教职工联欢活动纪实</div>
+                                <div class="line_bottom">时光荏苒，岁月如歌，又是一个辞旧迎新的时刻！为丰富全校教职工的文化生活，展示教职工的精神风貌，以崭新的姿态迎接新的一年，在学校领导地大力支持、工会地精心组织、全体教职工地积极配合下，定边县第七中学举行了庆元旦教职工拔河比赛和联欢会。</div>
+                            </div>
+                        </a>                        
+                    </div>
+                    <div class="new_line_4">
+                        <a href="#">
+                            <div class="line_left">
+                                <div class="day">27</div>
+                                <div class="year_month">2023.12.27</div>
+                            </div>
+                            <div class="line_rignt">
+                                <div class="line_top">年终考核促提升 厉兵秣马再出发</div>
+                                <div class="line_bottom">为全面落实素质教育和立德树人的根本任务，巩固“双减”和“五项管理”成效，促进教育教学质量稳步提升，不断提高学校教育发展水平。2023年12月27日，县教研室副主任白海禾、督学张彦洋，教体局基教一股股长尹彦杰、砖井学校副校长曹凯一行四人莅临定边县第七中学开展2023年全县教体系统年度目标责任考核工作。</div>
+                            </div>
+                        </a>                        
+                    </div>
+                </div>
+                <div class="box_2" name="2_box">
+                    <div class="new_line_1">
+                        <a href="#">
+                            <div class="line_left">
+                                <div class="day">5</div>
+                                <div class="year_month">2024.1.5</div>
+                            </div>
+                            <div class="line_rignt">
+                                <div class="line_top">定边教育&nbsp;定边县多部门联合开展学校体育场馆安全大检查</div>
+                                <div class="line_bottom">1月3日至4日，县应急管理、市场管理、消防、住建、教体、电力等部门组成联合检查组，对全县学校体育场馆开展了安全大检查。</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="new_line_2">
+                        <a href="#">
+                            <div class="line_left">
+                                <div class="day">2</div>
+                                <div class="year_month">2024.1.2</div>
+                            </div>
+                            <div class="line_rignt">
+                                <div class="line_top">定边县教体局召开2023年度党组书记点评法治工作会议</div>
+                                <div class="line_bottom">为深入贯彻习近平法治思想，扎实履行党组书记推进法治建设第一责任人职责，推动全县教体系统法治建设工作再上新台阶，1月2日下午，定边县教育和体育局召开2023年度党组书记点评法治工作会议，局班子成员、各股室股长以及部分局属单位、学校负责人参加会议。会议由局党组成员、专职副书记牛世凯主持。</div>
+                            </div>
+                        </a>                        
+                    </div>
+                    <div class="new_line_3">
+                        <a href="#">
+                            <div class="line_left">
+                                <div class="day">28</div>
+                                <div class="year_month">2023.12.28</div>
+                            </div>
+                            <div class="line_rignt">
+                                <div class="line_top">全县宣传思想文化工作会议召开</div>
+                                <div class="line_bottom">县委书记姬世平在全县宣传思想文化工作会议上强调，全县上下要切实担当新时代新的文化使命，做到举旗帜、聚民心、育新人、兴文化、展形象，更好统一思想、凝聚共识、坚定信心，为奋力建设“两区一中心”和“五个定边”凝聚更大力量。</div>
+                            </div>
+                        </a>                        
+                    </div>
+                    <div class="new_line_4">
+                        <a href="#">
+                            <div class="line_left">
+                                <div class="day">26</div>
+                                <div class="year_month">2023.12.26</div>
+                            </div>
+                            <div class="line_rignt">
+                                <div class="line_top">2023年定边县首届校园跳绳和啦啦操比赛成功举办</div>
+                                <div class="line_bottom">为贯彻落实中共中央办公厅、国务院办公厅《关于全面加强和改进新时代学校体育工作的意见》，推进学校阳光体育运动，打造活力校园，不断提升师生的身体素质，促进学生健康快乐成长。</div>
+                            </div>
+                        </a>                        
+                    </div>
+                </div>
+                <div class="box_3" name="3_box">
+                    <div class="new_line_1">
+                        <a href="#">
+                            <div class="line_left">
+                                <div class="day">12</div>
+                                <div class="year_month">2023.12.12</div>
+                            </div>
+                            <div class="line_rignt">
+                                <div class="line_top">定边县教体局召开会议集中学习习近平法治思想</div>
+                                <div class="line_bottom">12月11日，定边县教体局党组书记、局长蒋登峰主持召开会议，集中学习习近平法治思想，传达学习习近平总书记在中央全面依法治国工作会议上的重要讲话精神，局班子成员，局机关全体干部参加会议。</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="new_line_2">
+                        <a href="#">
+                            <div class="line_left">
+                                <div class="day">19</div>
+                                <div class="year_month">2023.03</div>
+                            </div>
+                            <div class="line_rignt">
+                                <div class="line_top">定边县青少年校外活动中心开展秋季学期汇报课展示活动</div>
+                                <div class="line_bottom">为了进一步了解各专业教师的教学情况和学员们秋季学期课程学习情况，12月23日至24日，定边县青少年校外活动中心组织各专业老师和学员开展了秋季学期课程学习汇报展示活动，并邀请了学员家长共同见证孩子的学习成长。</div>
+                            </div>
+                        </a>                        
+                    </div>
+                    <div class="new_line_3">
+                        <a href="#">
+                            <div class="line_left">
+                                <div class="day">11</div>
+                                <div class="year_month">2023.03</div>
+                            </div>
+                            <div class="line_rignt">
+                                <div class="line_top">县产业园区管委会主任、教体局局长蒋登峰调研指导驻村工作并走访慰问困难群众</div>
+                                <div class="line_bottom">元旦将至，岁寒情深。12月26日，县产业园区管委会主任、教体局局长蒋登峰先后到纪畔高岔村和冯地坑镇郭畔村调研指导驻村工作，并开展了“送温暖 促振兴”慰问活动，为困难群众送去了党和政府对群众的关怀。县教体局基教二股干部张衡陪同调研。</div>
+                            </div>
+                        </a>                        
+                    </div>
+                    <div class="new_line_4">
+                        <a href="#">
+                            <div class="line_left">
+                                <div class="day">06</div>
+                                <div class="year_month">2023.03</div>
+                            </div>
+                            <div class="line_rignt">
+                                <div class="line_top">5个严禁！四部门进一步规范义务教育课后服务</div>
+                                <div class="line_bottom">为认真贯彻落实中共中央办公厅、国务院办公厅印发的《关于进一步减轻义务教育阶段学生作业负担和校外培训负担的意见》，进一步规范义务教育课后服务工作，提高课后服务水平和质量，教育部办公厅等四部门日前联合印发《关于进一步规范义务教育课后服务有关工作的通知》</div>
+                            </div>
+                        </a>                        
+                    </div>
+                </div>
+                <div class="more"><a href="#">MORE></a></div>
+            </div>
+        </div>
+        <div class="section_3">
+            <div class="video_title">VIDEO SHOW</div>
+            <div class="video_text">视频展播</div>
+            <div class="under_line_2"></div>
+            <div class="video_play">
+                <video src="" poster="./img/2y11.jpg" controls></video>
+            </div>
+        </div>
+    </body>
+</html>
