@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>管理员登录</h1>
+    <form id="loginForm">
+        <label for="username">请输入您的账户：</label>
+        <input type="text" id="username" name="username"><br>
+
+        <label for="password">请输入您的密码：</label>
+        <input type="password" id="password" name="password"><br>
+
+        <button type="submit">登录</button>
+    </form>
+
+    <script>
+        // 静态的用户名和密码（仅做演示，实际项目绝对不要这样处理密码）
+        var hardcodedUsername = "web";
+        var hardcodedPassword = "web";
+
+        $(document).ready(function() {
+            $("#loginForm").on("submit", function(event) {
+                event.preventDefault(); // 阻止表单默认提交行为
+
+                var enteredUsername = $("#username").val();
+                var enteredPassword = $("#password").val();
+
+                if (enteredUsername === hardcodedUsername && enteredPassword === hardcodedPassword) {
+                    alert("登录成功");
+                    // 进行后续操作，例如跳转到特定页面等
+                    window.location.href = "https://github.com/dbqz/dbqz.github.io";
+                } else {
+                    alert("用户名或密码错误");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
