@@ -39,7 +39,7 @@ body {
 }
 
 #record-img {
-    background-image: url("../img/record1.jpg");
+    background-image: url("/音乐/img/record1.jpg");
     background-size: 100% 100%;
     display: flex;
     align-items: center;
@@ -197,12 +197,12 @@ body {
 }
 
 .mode {
-    background-image: url("../img/mode1.png");
+    background-image: url("/音乐/img/mode1.png");
     background-size: 100% 100%;
 }
 
 .s-left {
-    background-image: url("../img/下一首.png");
+    background-image: url("/音乐/img/下一首.png");
     background-size: 100% 100%;
 }
 
@@ -210,7 +210,7 @@ body {
     float: left;
     width: 50px;
     height: 50px;
-    background-image: url("../img/继续播放.png");
+    background-image: url("/音乐/img/继续播放.png");
     background-size: 100% 100%;
 }
 
@@ -218,17 +218,17 @@ body {
     float: left;
     width: 50px;
     height: 50px;
-    background-image: url("../img/暂停.png");
+    background-image: url("/音乐/img/暂停.png");
     background-size: 100% 100%;
 }
 
 .s-right {
-    background-image: url("../img/上一首.png");
+    background-image: url("/音乐/img/上一首.png");
     background-size: 100% 100%;
 }
 
 .volume {
-    background-image: url("../img/音量.png");
+    background-image: url("/音乐/img/音量.png");
     background-size: 100% 100%;
 }
 
@@ -257,7 +257,7 @@ body {
 }
 
 .MV {
-    background-image: url("../img/MV.png");
+    background-image: url("/音乐/img/MV.png");
     background-size: 100% 100%;
 }
 
@@ -280,7 +280,7 @@ body {
 }
 
 .list {
-    background-image: url("../img/列表.png");
+    background-image: url("/音乐/img/列表.png");
     background-size: 100% 100%;
 }
 
