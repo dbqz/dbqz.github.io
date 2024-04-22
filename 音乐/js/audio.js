@@ -133,14 +133,14 @@ let musicData = [['洛春赋', '云汐'], ['Yesterday', 'Alok/Sofi Tukker'], ['�
 
 // 初始化音乐
 function initMusic() {
-    audio.src = "mp3/music" + musicId.toString() + ".mp3";
+    audio.src = "/音乐/mp3/music" + musicId.toString() + ".mp3";
     audio.load();
     recordImg.classList.remove('rotate-play');
     audio.ondurationchange = function () {
         musicTitle.innerText = musicData[musicId][0];
         author.innerText = musicData[musicId][1];
         recordImg.style.backgroundImage = "url('img/record"+musicId.toString()+".jpg')";
-        body.style.backgroundImage = "url('img/bg"+musicId.toString()+".png')";
+        body.style.backgroundImage = "url('/音乐/img/bg"+musicId.toString()+".png')";
         audioTime.innerText = transTime(audio.duration);
         // 重置进度条
         audio.currentTime = 0;
@@ -166,7 +166,7 @@ mode.addEventListener('click', function (event) {
     if (modeId > 3) {
         modeId = 1;
     }
-    mode.style.backgroundImage = "url('img/mode" + modeId.toString() + ".png')";
+    mode.style.backgroundImage = "url('/音乐/img/mode" + modeId.toString() + ".png')";
 });
 
 audio.onended = function () {
@@ -224,14 +224,6 @@ speed.addEventListener('click', function (event) {
     }
 });
 
-// MV功能
-MV.addEventListener('click', function (event) {
-    // 向新窗口传值
-    var storage_list = window.sessionStorage;
-    storage_list['musicId'] = musicId;
-    window.open("video.html");
-});
-
 // 暴力捆绑列表音乐
 document.getElementById("music0").addEventListener('click', function (event) {
     musicId = 0;
@@ -282,11 +274,11 @@ function setNoVolumn() {
             lastVolumn = 70;
         }
         volumeTogger.value = lastVolumn;
-        volume.style.backgroundImage = "url('img/音量.png')";
+        volume.style.backgroundImage = "url('/音乐/img/音量.png')";
     }
     else {
         lastVolumn = volumeTogger.value;
         volumeTogger.value = 0;
-        volume.style.backgroundImage = "url('img/静音.png')";
+        volume.style.backgroundImage = "url('/音乐/img/静音.png')";
     }
 }
