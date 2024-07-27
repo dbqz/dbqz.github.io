@@ -1,18 +1,18 @@
 body {
     font-family: Arial, sans-serif;
-    background-image: url('https://s2.loli.net/2024/07/27/Bi9vZjT4eC3MqdS.jpg');
-    background-size: cover;
+    background-image: url('https://s2.loli.net/2024/07/27/4IjDa6ZVMbxqt7J.jpg');
+    background-size: cover; /* Ensure the background covers the entire viewport */
+    background-position: center; /* Center the background image */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vh; /* Full height of the viewport */
     margin: 0;
 }
 
 .login-container {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
+    width: 100%; /* Make sure the container takes up the full width available */
+    max-width: 400px; /* Set a maximum width for the container */
 }
 
 .login-form {
@@ -29,7 +29,7 @@ body {
 
 .login-form input[type="text"],
 .login-form input[type="password"] {
-    width: 100%;
+    width: 100%; /* Inputs take up the full width of their parent */
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -37,7 +37,7 @@ body {
 }
 
 .login-form button {
-    width: 100%;
+    width: 100%; /* Button takes up the full width of its parent */
     padding: 10px;
     background-color: #007BFF;
     color: white;
