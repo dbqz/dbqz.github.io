@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById('password').value;
 
         if (username === 'wangtao' && password === 'wangtao') {
-            window.location.href = "/wendang/"; // 替换为你的目标网址
+            window.location.href = "/wendang/web/61082520100415366X/"; // 替换为你的目标网址
         } else {
             alert('Invalid credentials.');
         }
