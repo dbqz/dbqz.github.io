@@ -20,12 +20,16 @@
         
         #footer {
             background-color: #ffffff;
-            padding: 110px;
+            padding: 100px;
             text-align: center;
             margin-top: auto;
             
         }
-        
+        h1{
+            color: #333;
+            margin-bottom:20px
+            
+        }
         .file-list {
             list-style-type: none;
             padding: 0;
@@ -49,24 +53,25 @@
         .file-name:hover {
             text-decoration: underline;
         }
-        footer {
-            background-color: #f8f8f8;
-            padding: 10px 0;
-            text-align: center;
-        }
+        
         footer p {
             margin: 5px 0;
         }
+        
     </style>
 </head>
 <body>
     <h2>学校信息文档</h2>
     <ul class="file-list">
-        <li class="file-item"><a href="/wendang/neirong/dbqz.xlsx" download class="file-name"</a>个人信息</li>
-        
+        <li class="file-item"><a href="/wendang/neirong/dbqz.xlsx" download class="file-name"</a>个人信息</li> 
     </ul>
+
+    
          <footer id="footer">
         <span id="ipAddress"> 加载...</span>
+         </footer>
+
+    
              <script>
         function fetchIPAddress() {
             // Use the ipify API to get the client's IP address.
@@ -81,6 +86,6 @@
         // Call the function when the page is loaded
         window.onload = fetchIPAddress;
     </script>
-    </footer> 
+    
 </body>
 </html>
