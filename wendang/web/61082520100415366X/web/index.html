@@ -65,6 +65,22 @@
         <li class="file-item"><a href="/wendang/neirong/dbqz.xlsx" download class="file-name"</a>个人信息</li>
         
     </ul>
-      
+         <footer id="footer">
+        <span id="ipAddress"> IP...</span>
+             <script>
+        function fetchIPAddress() {
+            // Use the ipify API to get the client's IP address.
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json()) // Parse the response as JSON
+                .then(data => {
+                    document.getElementById('ipAddress').textContent = '您的IP地址为：' + data.ip;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Call the function when the page is loaded
+        window.onload = fetchIPAddress;
+    </script>
+    </footer> 
 </body>
 </html>
