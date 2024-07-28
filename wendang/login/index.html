@@ -6,6 +6,21 @@
     <title>定边七中 ｜ 文档管理</title>
     <link rel="stylesheet" href="/wz/css/wendang/styles.css">
     <script src="/wz/js/wendang/script.js" defer></script>
+     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #footer {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
     <div class="login-container">
@@ -22,6 +37,22 @@
             </form>
         </div>
     </div>
-        
+    <script>
+        function fetchIPAddress() {
+            // Use the ipify API to get the client's IP address.
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json()) // Parse the response as JSON
+                .then(data => {
+                    document.getElementById('ipAddress').textContent = '您的IP地址为：' + data.ip;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Call the function when the page is loaded
+        window.onload = fetchIPAddress;
+    </script>
+   <footer id="footer">
+        <span id="ipAddress"> IP加载中...</span>
+    </footer>     
 </body>
 </html>
