@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>查询界面</title>
+    <title>定边七中｜信息查询</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: url('background.jpg') no-repeat center center fixed;
+            background: url('https://s2.loli.net/2024/08/08/iofFvYDUTJwgVeN.jpg') no-repeat center center fixed;
             background-size: cover;
             color: white;
             display: flex;
@@ -22,6 +22,8 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 600px;
         }
 
         h1 {
@@ -54,7 +56,7 @@
 
         #result {
             margin-top: 20px;
-            text-align: center;
+            text-align: left;
         }
 
         .fade-in {
@@ -65,44 +67,70 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
+        .result-row {
+            margin-bottom: 10px;
+        }
+
+        .result-header {
+            font-weight: bold;
+        }
+
+        .result-content {
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
     <div id="container">
-        <h1>查询界面</h1>
+        <h2>存档中心</h2>
         <input type="text" id="searchInput" placeholder="输入姓名">
-        <button id="searchButton">查询</button>
+        <button id="searchButton">点击查询</button>
         <div id="result"></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script>
+        let workbook;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const filePath = 'https://dbqz.xyz/xx/dbqz.xlsx';
+            fetch(filePath)
+                .then(response => response.arrayBuffer())
+                .then(data => {
+                    workbook = XLSX.read(data, { type: 'array' });
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
         document.getElementById('searchButton').addEventListener('click', function() {
             const name = document.getElementById('searchInput').value.trim();
             if (name === '') {
-                alert('请输入姓名');
+                alert('请输入该生姓名');
                 return;
             }
 
-            fetch('/xx/dbqz.Xlsx')
-                .then(response => response.arrayBuffer())
-                .then(data => {
-                    const workbook = XLSX.read(data, { type: 'array' });
-                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-                    const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+            if (!workbook) {
+                alert('未加载');
+                return;
+            }
 
-                    const headers = jsonData[0];
-                    const rows = jsonData.slice(1);
-                    const result = rows.find(row => row.includes(name));
+            const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+            const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
 
-                    if (result) {
-                        const resultHTML = headers.map((header, index) => `<p>${header}: ${result[index] || ''}</p>`).join('');
-                        document.getElementById('result').innerHTML = `<div class="fade-in">${resultHTML}</div>`;
-                    } else {
-                        document.getElementById('result').innerHTML = `<div class="fade-in">未找到该姓名的信息</div>`;
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+            const headers = jsonData[0];
+            const rows = jsonData.slice(1);
+            const result = rows.find(row => row.includes(name));
+
+            if (result) {
+                const resultHTML = result.map((item, index) => {
+                    const headerText = headers[index] === "姓名" ? "查找到姓名" : headers[index];
+                    return `<div class="result-row"><span class="result-header">${headerText}:</span> <span class="result-content">${item || ''}</span></div>`;
+                }).join('');
+                document.getElementById('result').innerHTML = `<div class="fade-in">${resultHTML}</div>`;
+            } else {
+                document.getElementById('result').innerHTML = `<div class="fade-in">未找到该生的信息</div>`;
+            }
         });
     </script>
 </body>
