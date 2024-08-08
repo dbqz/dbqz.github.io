@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>显示照片</title>
+</head>
+<body>
+    <h2>输入姓名和身份证号码</h2>
+    <form id="photoForm">
+        <label for="name">姓名：</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="idcard">身份证号码：</label><br>
+        <input type="text" id="idcard" name="idcard" required><br><br>
+        <button type="submit">获取照片</button>
+    </form>
+    <div id="photoResult"></div>
+
+    <script type="text/python">
+        // Python 代码段
+        import base64
+        from Crypto.Cipher import AES
+        from Crypto.Util.Padding import pad, unpad
+        import requests
+
+        # AES加密和解密函数
+        def aes_ecb_encrypt(key, text):
+            cipher = AES.new(key, AES.MODE_ECB)
+            padded_plaintext = pad(text.encode('utf-8'), AES.block_size)
+            ciphertext = cipher.encrypt(padded_plaintext)
+            return ciphertext.hex().upper()
+
+        def aes_ecb_decrypt(key, text):
+            cipher = AES.new(key, AES.MODE_ECB)
+            ciphertext = bytes.fromhex(text)
+            padded_plaintext = cipher.decrypt(ciphertext)
+            plaintext = unpad(padded_plaintext, AES.block_size).decode('utf-8')
+            return plaintext
+
+        document.getElementById('photoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var name = document.getElementById('name').value;
+            var idcard = document.getElementById('idcard').value;
+            var key = 'jnsbwxxcx@20211110hJnLEncD0TgzZX';
+            var text = '{"xm":"' + name + '","sfzhm":"' + idcard + '"}';
+
+            var url = 'https://xcx.jnsi.cxql.net/sbwxxcx/asd/sco/getPhotoNoSbCard';
+            var payload = {
+                'paramsAes': aes_ecb_encrypt(key, text)
+            };
+            var headers = {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/11212 MicroMessenger/8.0.44(0x18002c10) NetType/WIFI Language/zh_CN'
+            };
+
+            fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: new URLSearchParams(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                var aes_data = data['data'];
+                var photo = aes_ecb_decrypt(key, aes_data);
+                var photoData = 'data:image/png;base64,' + photo;
+                var photoResult = document.getElementById('photoResult');
+                photoResult.innerHTML = '<h2>' + name + ' - ' + idcard + '</h2><img src="' + photoData + '" alt="照片">';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
+
