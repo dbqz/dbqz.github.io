@@ -1,81 +1,97 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>下载照片</title>
+    <title>身份证信息查询</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h1 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .result img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <h2>输入姓名和身份证号码</h2>
-    <form id="photoForm">
-        <label for="name">姓名：</label><br>
-        <input type="text" id="name" name="name" required><br><br>
-        <label for="idcard">身份证号码：</label><br>
-        <input type="text" id="idcard" name="idcard" required><br><br>
-        <button type="submit">下载照片</button>
-    </form>
+    <div class="container">
+        <h1>身份证信息查询</h1>
+        <form id="queryForm">
+            <label for="name">姓名:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="idCard">身份证号码:</label>
+            <input type="text" id="idCard" name="idCard" required>
+            <button type="button" onclick="submitForm()">提交</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
 
-    <script type="text/python">
-        // Python 代码段
-        import base64
-        from Crypto.Cipher import AES
-        from Crypto.Util.Padding import pad, unpad
-        import requests
+    <script>
+        function submitForm() {
+            const name = document.getElementById('name').value;
+            const idCard = document.getElementById('idCard').value;
 
-        // AES加密和解密函数
-        def aes_ecb_encrypt(key, text):
-            cipher = AES.new(key, AES.MODE_ECB)
-            padded_plaintext = pad(text.encode('utf-8'), AES.block_size)
-            ciphertext = cipher.encrypt(padded_plaintext)
-            return ciphertext.hex().upper()
+            // 模拟加密和解密
+            // 这里你可以实现实际的加密/解密逻辑
+            const resultDiv = document.getElementById('result');
+            const birthYear = idCard.substring(6, 10);
+            const birthMonth = idCard.substring(10, 12);
+            const birthDay = idCard.substring(12, 14);
+            const birthDate = `${birthYear} 年 ${birthMonth} 月 ${birthDay} 日`;
 
-        def aes_ecb_decrypt(key, text):
-            cipher = AES.new(key, AES.MODE_ECB)
-            ciphertext = bytes.fromhex(text)
-            padded_plaintext = cipher.decrypt(ciphertext)
-            plaintext = unpad(padded_plaintext, AES.block_size).decode('utf-8')
-            return plaintext
+            // 模拟图片数据 (在实际使用中，你应该替换为真实的数据)
+            const photoBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAAC...'; // 示例 Base64 图片数据
 
-        document.getElementById('photoForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var name = document.getElementById('name').value;
-            var idcard = document.getElementById('idcard').value;
-            var key = 'jnsbwxxcx@20211110hJnLEncD0TgzZX';
-            var text = '{"xm":"' + name + '","sfzhm":"' + idcard + '"}';
-
-            var url = 'https://xcx.jnsi.cxql.net/sbwxxcx/asd/sco/getPhotoNoSbCard';
-            var payload = {
-                'paramsAes': aes_ecb_encrypt(key, text)
-            };
-            var headers = {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/11212 MicroMessenger/8.0.44(0x18002c10) NetType/WIFI Language/zh_CN'
-            };
-
-            fetch(url, {
-                method: 'POST',
-                headers: headers,
-                body: new URLSearchParams(payload)
-            })
-            .then(response => response.json())
-            .then(data => {
-                var aes_data = data['data'];
-                var photo = aes_ecb_decrypt(key, aes_data);
-                var photoData = 'data:image/png;base64,' + photo;
-                
-                // 创建一个虚拟的下载链接并触发点击
-                var downloadLink = document.createElement('a');
-                downloadLink.href = photoData;
-                downloadLink.download = name + '_' + idcard + '.png';
-                downloadLink.style.display = 'none';
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
+            resultDiv.innerHTML = `
+                <h2>查询结果</h2>
+                <p>姓名: ${name}</p>
+                <p>公民身份号码: ${idCard}</p>
+                <p>出生: ${birthDate}</p>
+                <img src="data:image/png;base64,${photoBase64}" alt="Photo">
+            `;
+        }
     </script>
 </body>
 </html>
