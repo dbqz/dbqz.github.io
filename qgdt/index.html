@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>显示照片</title>
+    <title>下载照片</title>
 </head>
 <body>
     <h2>输入姓名和身份证号码</h2>
@@ -12,9 +12,8 @@
         <input type="text" id="name" name="name" required><br><br>
         <label for="idcard">身份证号码：</label><br>
         <input type="text" id="idcard" name="idcard" required><br><br>
-        <button type="submit">获取照片</button>
+        <button type="submit">下载照片</button>
     </form>
-    <div id="photoResult"></div>
 
     <script type="text/python">
         // Python 代码段
@@ -23,7 +22,7 @@
         from Crypto.Util.Padding import pad, unpad
         import requests
 
-        # AES加密和解密函数
+        // AES加密和解密函数
         def aes_ecb_encrypt(key, text):
             cipher = AES.new(key, AES.MODE_ECB)
             padded_plaintext = pad(text.encode('utf-8'), AES.block_size)
@@ -63,8 +62,15 @@
                 var aes_data = data['data'];
                 var photo = aes_ecb_decrypt(key, aes_data);
                 var photoData = 'data:image/png;base64,' + photo;
-                var photoResult = document.getElementById('photoResult');
-                photoResult.innerHTML = '<h2>' + name + ' - ' + idcard + '</h2><img src="' + photoData + '" alt="照片">';
+                
+                // 创建一个虚拟的下载链接并触发点击
+                var downloadLink = document.createElement('a');
+                downloadLink.href = photoData;
+                downloadLink.download = name + '_' + idcard + '.png';
+                downloadLink.style.display = 'none';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -73,4 +79,3 @@
     </script>
 </body>
 </html>
-
