@@ -90,9 +90,24 @@
             margin-left: 9px;
             font-size: 11px;
         }
+          .image-container {
+    position: absolute; /* 绝对定位 */
+    top: 0; /* 顶部对齐 */
+    left: 0; /* 左侧对齐 */
+  }
+
+  /* 设置图片样式 */
+  .image-container img {
+    width: 85px; /* 设置图片宽度 */
+    height: auto; /* 高度自动调整以保持图片比例 */
+  }
     </style>
 </head>
 <body>
+    <div class="image-container">
+  <img src="https://pic.imgdb.cn/item/66b4d50ed9c307b7e94da7f4.png" alt=PLC">
+</div>
+
     <div id="container">
         <h3>定边七中｜P.L.C </h3>
         <input type="text" id="searchInput" placeholder="输入姓名">
