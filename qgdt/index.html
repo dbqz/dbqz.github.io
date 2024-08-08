@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,50 +8,58 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 20px;
+            color: #333;
         }
         .container {
-            background: white;
+            max-width: 800px;
+            margin: auto;
             padding: 20px;
-            border-radius: 8px;
+            background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            border-radius: 8px;
         }
         h1 {
-            font-size: 1.5em;
+            text-align: center;
+            color: #4CAF50;
+        }
+        form {
             margin-bottom: 20px;
         }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
         input[type="text"] {
-            width: calc(100% - 20px);
+            width: calc(100% - 22px);
             padding: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 16px;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
-        button {
+        input[type="submit"] {
             background-color: #4CAF50;
-            color: white;
-            padding: 10px;
+            color: #fff;
+            padding: 10px 15px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            width: 100%;
+            font-size: 16px;
         }
-        button:hover {
+        input[type="submit"]:hover {
             background-color: #45a049;
         }
         .result {
-            margin-top: 20px;
+            padding: 20px;
+            background: #eaf1e9;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
-        .result img {
+        img {
             max-width: 100%;
             height: auto;
-            display: block;
-            margin: 10px 0;
         }
     </style>
 </head>
@@ -61,37 +69,93 @@
         <form id="queryForm">
             <label for="name">姓名:</label>
             <input type="text" id="name" name="name" required>
-            <label for="idCard">身份证号码:</label>
+            <label for="idCard">身份证:</label>
             <input type="text" id="idCard" name="idCard" required>
-            <button type="button" onclick="submitForm()">提交</button>
+            <input type="submit" value="查询">
         </form>
-        <div class="result" id="result"></div>
+        <div class="result" id="result">
+            <!-- 查询结果将显示在这里 -->
+        </div>
     </div>
 
     <script>
-        function submitForm() {
+        document.getElementById('queryForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
             const name = document.getElementById('name').value;
             const idCard = document.getElementById('idCard').value;
 
-            // 模拟加密和解密
-            // 这里你可以实现实际的加密/解密逻辑
-            const resultDiv = document.getElementById('result');
-            const birthYear = idCard.substring(6, 10);
-            const birthMonth = idCard.substring(10, 12);
-            const birthDay = idCard.substring(12, 14);
-            const birthDate = `${birthYear} 年 ${birthMonth} 月 ${birthDay} 日`;
+            const birthYear = idCard.slice(6, 10);
+            const birthMonth = idCard.slice(10, 12);
+            const birthDay = idCard.slice(12, 14);
+            const birthDate = `${birthYear}年${birthMonth}月${birthDay}日`;
 
-            // 模拟图片数据 (在实际使用中，你应该替换为真实的数据)
-            const photoBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAAC...'; // 示例 Base64 图片数据
+            const aesKey = "jnsbwxxcx@20211110hJnLEncD0TgzZX";
+            const requestData = {
+                xm: name,
+                sfzhm: idCard
+            };
+            
+            const paramsAes = aesEncryptEcbHex(JSON.stringify(requestData), aesKey);
 
-            resultDiv.innerHTML = `
-                <h2>查询结果</h2>
-                <p>姓名: ${name}</p>
-                <p>公民身份号码: ${idCard}</p>
-                <p>出生: ${birthDate}</p>
-                <img src="data:image/png;base64,${photoBase64}" alt="Photo">
-            `;
+            try {
+                const response = await fetch("https://xcx.jnsi.cxql.net/sbwxxcx/asd/sco/getPhotoNoSbCard", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        paramsAes: paramsAes
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('网络响应不是 OK');
+                }
+
+                const responseData = await response.json();
+
+                if (responseData.data) {
+                    const encryptedPhotoHex = responseData.data;
+                    const encryptedPhotoBase64 = btoa(hexToBytes(encryptedPhotoHex));
+                    const photoBase64 = aesDecryptEcbBase64(encryptedPhotoBase64, aesKey);
+
+                    document.getElementById('result').innerHTML = `
+                        <h2>查询结果</h2>
+                        <p><strong>姓名:</strong> ${name}</p>
+                        <p><strong>公民身份号码:</strong> ${idCard}</p>
+                        <p><strong>出生:</strong> ${birthDate}</p>
+                        <p><strong>照片:</strong></p>
+                        <img src="data:image/png;base64,${photoBase64}" alt="身份证照片">
+                    `;
+                } else {
+                    document.getElementById('result').innerHTML = '<p>未找到相关信息。</p>';
+                }
+            } catch (error) {
+                document.getElementById('result').innerHTML = `<p>查询失败: ${error.message}</p>`;
+            }
+        });
+
+        function aesEncryptEcbHex(text, key) {
+            // 这里你需要将AES加密转换为 JavaScript 实现
+            // 这是一个示例函数，你需要使用实际的加密库
+            return ''; // 返回加密后的十六进制字符串
+        }
+
+        function hexToBytes(hexStr) {
+            let bytes = [];
+            for (let i = 0; i < hexStr.length; i += 2) {
+                bytes.push(parseInt(hexStr.substr(i, 2), 16));
+            }
+            return new Uint8Array(bytes);
+        }
+
+        function aesDecryptEcbBase64(encryptedBase64, key) {
+            // 这里你需要将AES解密转换为 JavaScript 实现
+            // 这是一个示例函数，你需要使用实际的解密库
+            return ''; // 返回解密后的字符串
         }
     </script>
 </body>
 </html>
+
