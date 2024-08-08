@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,45 +18,52 @@
         }
 
         #container {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.4);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             width: 90%;
-            max-width: 600px;
+            max-width: 300px;
         }
 
-        h1 {
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        h3{
             text-align: center;
         }
-
         #searchInput {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
+            padding: 7px;
+            margin-bottom: 14px;
             border: none;
-            border-radius: 5px;
+            border-radius: 7px;
+            font-size: 15px;
         }
 
         #searchButton {
             width: 100%;
-            padding: 10px;
+            padding: 9px;
             border: none;
-            border-radius: 5px;
-            background-color: #007BFF;
+            border-radius: 10px;
+            background-color:  #0056b3;
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
         #searchButton:hover {
-            background-color: #0056b3;
+            background-color:  	#1E90FF;
         }
 
         #result {
             margin-top: 20px;
             text-align: left;
+            font-size: 1rem;
+            word-wrap: break-word;
         }
 
         .fade-in {
@@ -69,23 +76,26 @@
         }
 
         .result-row {
-            margin-bottom: 10px;
+            margin-bottom: 0px;
+            font-size: 9px;
         }
 
         .result-header {
             font-weight: bold;
+            font-size: 9px;
         }
 
         .result-content {
-            margin-left: 10px;
+            margin-left: 0px;
+            font-size: 9px;
         }
     </style>
 </head>
 <body>
     <div id="container">
-        <h2>存档中心</h2>
+        <h3>定边七中｜存档中心</h3>
         <input type="text" id="searchInput" placeholder="输入姓名">
-        <button id="searchButton">点击查询</button>
+        <button id="searchButton">信息查询</button>
         <div id="result"></div>
     </div>
 
@@ -125,7 +135,8 @@
             if (result) {
                 const resultHTML = result.map((item, index) => {
                     const headerText = headers[index] === "姓名" ? "查找到姓名" : headers[index];
-                    return `<div class="result-row"><span class="result-header">${headerText}:</span> <span class="result-content">${item || ''}</span></div>`;
+                    const contentText = item !== undefined ? item : '数据缺失';
+                    return `<div class="result-row"><span class="result-header">${headerText}:</span> <span class="result-content">${contentText}</span></div>`;
                 }).join('');
                 document.getElementById('result').innerHTML = `<div class="fade-in">${resultHTML}</div>`;
             } else {
