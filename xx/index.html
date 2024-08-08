@@ -134,7 +134,7 @@
 
             if (result) {
                 const resultHTML = result.map((item, index) => {
-                    const headerText = headers[index] === "姓名" ? "查找到姓名" : headers[index];
+                    const headerText = headers[index] === "姓名" ? "学生姓名" : headers[index];
                     const contentText = item !== undefined ? item : '数据缺失';
                     return `<div class="result-row"><span class="result-header">${headerText}:</span> <span class="result-content">${contentText}</span></div>`;
                 }).join('');
