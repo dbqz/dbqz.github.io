@@ -3,137 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>定边七中｜档案查询</title>
+    <title>查询界面</title>
     <style>
         body {
-            background-image: url('https://pic.imgdb.cn/item/66b4497bd9c307b7e996c2d3.jpg'); /* 替换为你的背景照片路径 */
-            background-size: cover;
             font-family: Arial, sans-serif;
-            color: #333;
-            text-align: center;
-            padding: 50px;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-        .container {
-            background: rgba(255, 255, 255, 0.7);
+
+        #container {
+            background: rgba(0, 0, 0, 0.7);
             padding: 20px;
             border-radius: 10px;
-            max-width: 500px;
-            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        input[type="text"] {
+
+        h1 {
+            text-align: center;
+        }
+
+        #searchInput {
+            width: 100%;
             padding: 10px;
-            width: 80%;
             margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
         }
-        table {
+
+        #searchButton {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ccc;
             padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-        th {
-            background-color: #f2f2f2;
+
+        #searchButton:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('queryForm').addEventListener('submit', function(event) {
-                event.preventDefault(); // 阻止表单提交的默认行为
-
-                var name = document.getElementById('nameInput').value.trim();
-
-                // 从Excel文件中读取数据
-                var file = 'https://dbqz.xyz/xx/dbqz.xlsx'; // 替换为你的Excel文件路径
-                var reader = new FileReader();
-
-                reader.onload = function(event) {
-                    var data = new Uint8Array(event.target.result);
-                    var workbook = XLSX.read(data, { type: 'array' });
-
-                    // 假设数据在第一个工作表中
-                    var sheetName = workbook.SheetNames[0];
-                    var sheet = workbook.Sheets[sheetName];
-
-                    // 将数据转换为JSON格式
-                    var jsonData = XLSX.utils.sheet_to_json(sheet);
-
-                    // 查询匹配姓名的信息
-                    var results = jsonData.filter(function(item) {
-                        return item.name === name;
-                    });
-
-                    // 显示查询结果
-                    displayResults(results);
-                };
-
-                // 读取Excel文件
-                fetch(file)
-                    .then(response => response.arrayBuffer())
-                    .then(buffer => {
-                        reader.readAsArrayBuffer(new Blob([buffer]));
-                    })
-                    .catch(error => {
-                        console.error('Error fetching the file:', error);
-                    });
-            });
-
-            function displayResults(results) {
-                var resultContainer = document.getElementById('resultContainer');
-                resultContainer.innerHTML = ''; // 清空之前的结果
-
-                if (results.length > 0) {
-                    var table = document.createElement('table');
-                    var header = table.createTHead();
-                    var row = header.insertRow();
-
-                    // 创建表头
-                    for (var key in results[0]) {
-                        var th = document.createElement('th');
-                        th.textContent = key;
-                        row.appendChild(th);
-                    }
-
-                    // 创建表格内容
-                    results.forEach(function(result) {
-                        var row = table.insertRow();
-                        for (var key in result) {
-                            var cell = row.insertCell();
-                            cell.textContent = result[key];
-                        }
-                    });
-
-                    resultContainer.appendChild(table);
-                } else {
-                    resultContainer.textContent = 'No results found.';
-                }
-            }
-        });
-    </script>
 </head>
 <body>
-    <div class="container">
-        <h2>定边七中｜档案查询</h2>
-        <form id="queryForm">
-            <input type="text" id="nameInput" placeholder="请输入姓名">
-            <input type="submit" value="查询">
-        </form>
-        <div id="resultContainer">
-            <!-- 查询结果将在此显示 -->
-        </div>
+    <div id="container">
+        <h1>查询界面</h1>
+        <input type="text" id="searchInput" placeholder="输入姓名">
+        <button id="searchButton">查询</button>
+        <div id="result"></div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script>
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const name = document.getElementById('searchInput').value.trim();
+            if (name === '') {
+                alert('请输入姓名');
+                return;
+            }
+
+            fetch('/xx/dbqz.Xlsx')
+                .then(response => response.arrayBuffer())
+                .then(data => {
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+
+                    const headers = jsonData[0];
+                    const rows = jsonData.slice(1);
+                    const result = rows.find(row => row.includes(name));
+
+                    if (result) {
+                        const resultHTML = headers.map((header, index) => `<p>${header}: ${result[index] || ''}</p>`).join('');
+                        document.getElementById('result').innerHTML = `<div class="fade-in">${resultHTML}</div>`;
+                    } else {
+                        document.getElementById('result').innerHTML = `<div class="fade-in">未找到该姓名的信息</div>`;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
 </body>
 </html>
