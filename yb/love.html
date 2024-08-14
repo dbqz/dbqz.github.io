@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title> 我们 </title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    /* 设置背景图片 */
+    background-image: url('https://pic.imgdb.cn/item/66bb46b7d9c307b7e9f1b513.jpg');
+    /* 其他背景属性 */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    /* 应用高斯模糊效果 */
+  
+  }
+
+  .content {
+    /* 设置容器的透明度 */
+    background-color: rgba(255, 255, 255, 0.5); /* 白色背景，透明度为70% */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* 添加白色边框 */
+    margin: 20px; /* 添加边距以区分背景 */
+  }
+
+  .message {
+    padding: 20px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    text-align: center;
+  }
+
+  .message:hover {
+    transform: scale(1.1);
+    transition: transform 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .message.visible {
+    animation: fadeIn 1s;
+    opacity: 1;
+  }
+  p {
+  font-family: '楷体', sans-serif; /* 使用 Roboto 字体，如果没有则使用 sans-serif */
+  font-size: 13px; /* 字体大小 */
+  line-height: 1.8; /* 行间距 */
+  font-weight: bold; /* 加粗文本 */
+}
+/* CSS 文件或者 <style> 标签内的样式 */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* 设置 body 最小高度为视口高度 */
+  margin: 0; /* 移除默认的边距 */
+  background-color: #f0f0f0; /* 背景颜色 */
+}
+
+.styled-button {
+  padding: 15px 10px; /* 内边距 */
+  font-size: 13px; /* 字体大小 */
+  color: #fff; /* 文字颜色 */
+  background-color: pink; /* 背景颜色 */
+  border: none; /* 移除边框 */
+  border-radius: 100px; /* 边框圆角 */
+  cursor: pointer; /* 鼠标悬停时的指针样式 */
+  transition: all 0.3s ease; /* 过渡动画效果 */
+}
+
+.styled-button:hover {
+  background-color: pink; /* 鼠标悬停时改变背景色 */
+}
+
+.styled-button:active {
+  transform: translateY(2px); /* 按下时的微小位移效果 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* 添加阴影效果 */
+}
+
+</style>
+</head>
+<body>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="//music.163.com/outchain/player?type=2&id=2149426481&auto=1&height=32"></iframe>
+<div class="content">
+  <div class="message visible">
+    <h5>2024年8月13日 </h5>
+    <p>&nbsp;&nbsp;亲爱的，你的消息一直很敷衍也很难等。你可以把恋人隐藏了唯独家人不可以嘛？
+    <p>
+   &nbsp;&nbsp; 其实这就是一件小事，我也只是阴阳了两句我才没有生气你哄哄我就好了我很好哄的，但是我也没想到你反应那么大，那你为什么要这样呢？
+    说实话，我还从来没看过你生气。你的第一反应竟然不是和我好好说和我讲:“你误会了宝宝，你别生气”而是维护她对我发脾气。我知道你难受但我也很难受啊宝宝。我也以为是件小事，我也感觉因为这个事情就这么分开了也挺离谱的。如果我们刚开始好好说就好了，也不是现在这样。亲爱的，你知道吗？分开的那天我哭了一整天，我嘴上说的慢不在乎还有那些绝情的话，都不是我心之所想的。可能因为我总是口是心非，所以你才会离开吧。你出现的意义，直到你消失的那天我都没懂。分手的戒断反应其实是缓慢而又持续的。原来它会愈演愈烈一直到痛苦占据我的内心啊，从一开始夜晚的低落，到白天一整天都在发呆。又从做其他事情可以分散注意力，到后来无论做什么都会被这种情绪感染。</p><p>&nbsp;&nbsp;&nbsp;亲爱的，在我模糊的世界里唯独我们的回忆最清晰。感觉真对不起我的朋友，抱歉我又撒谎了。
+    <p>&nbsp;&nbsp;说好的，提起你再也不哭的。可能是这首音乐太容易共情了.</p>
+  </div>
+</div>
+<a href="/yb/wt.html" class="styled-button">回忆</a>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var message = document.querySelector('.message');
+    setTimeout(function() {
+      message.classList.add('visible');
+    }, 1000); // 模拟淡入延迟
+  });
+</script>
+
+</body>
+</html>
