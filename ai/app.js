@@ -4,7 +4,7 @@ document.getElementById('promptForm').addEventListener('submit', async function(
     const generatedImage = document.getElementById('generatedImage');
 
     // Fetch the image from your API endpoint
-    const response = await fetch(`https://ai.apl.dbqz.xyz/generate?prompt=${encodeURIComponent(promptInput.value)}`);
+    const response = await fetch(`https://ai.api.dbqz.xyz/generate?prompt=${encodeURIComponent(promptInput.value)}`);
     
     if (!response.ok) {
         alert('Failed to generate image.');
