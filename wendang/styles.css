@@ -1,111 +1,134 @@
 /* styles.css */
-body {
+* {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(120deg, #2980b9, #8e44ad);
-    height: 100vh;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    overflow: hidden;
 }
 
-.container {
-    width: 360px;
-    height: 420px;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 40px 40px;
-    border-radius: 10px;
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
-    position: relative;
-    overflow: hidden;
-    text-align: center;
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 .login-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    width: 350px;
+}
+
+.login-box h2 {
+    margin-bottom: 30px;
+    font-size: 2em;
+    color: #fff;
     position: relative;
     z-index: 1;
 }
 
-.login-box h1 {
-    margin: 0 0 20px;
-    padding: 0;
-    color: #fff;
-    text-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
-    font-size: 2.2em;
-}
-
-.textbox {
+.input-container {
     position: relative;
     margin-bottom: 30px;
 }
 
-.textbox input {
+.input-container input {
     width: 100%;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 10px 10px 0;
+    background: transparent;
     border: none;
+    border-bottom: 2px solid #fff;
+    color: #fff;
+    font-size: 1.1em;
+    letter-spacing: 1px;
     outline: none;
+    position: relative;
+    z-index: 1;
+    transition: border-color 0.3s ease;
+}
+
+.input-container label {
+    position: absolute;
+    top: 10px;
+    left: 0;
     color: #fff;
     font-size: 1em;
-    letter-spacing: 1px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-    border-radius: 4px;
-    transition: 0.2s;
+    pointer-events: none;
+    transition: 0.5s;
 }
 
-.textbox input:focus {
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.7);
+.input-container input:focus ~ label,
+.input-container input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #3498db;
+    font-size: 0.8em;
 }
 
-.btn {
+.input-underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #3498db;
+    transition: width 0.3s ease;
+}
+
+.input-container input:focus ~ .input-underline {
     width: 100%;
-    background: #1abc9c;
+}
+
+.login-btn {
+    background: #3498db;
     border: none;
-    padding: 10px;
+    padding: 12px 20px;
+    border-radius: 25px;
     cursor: pointer;
-    font-size: 1.2em;
     color: #fff;
-    border-radius: 4px;
-    transition: background 0.3s ease;
+    font-size: 1.1em;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.btn:hover {
-    background: #16a085;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.7);
+.login-btn:hover {
+    background: #2980b9;
+    transform: scale(1.05);
 }
 
-/* Animation effects */
-.container::before {
+.login-box::before {
     content: '';
     position: absolute;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
     top: -50%;
     left: -50%;
-    width: 400%;
-    height: 400%;
-    background: radial-gradient(circle, #16a085, #2980b9, #8e44ad, #c0392b);
-    animation: animate 6s linear infinite;
     z-index: 0;
     transform-origin: center;
+    animation: rotate 6s linear infinite;
 }
 
-@keyframes animate {
+@keyframes rotate {
     0% {
         transform: rotate(0deg);
     }
     100% {
         transform: rotate(360deg);
     }
-}
-
-.container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 1;
 }

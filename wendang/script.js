@@ -1,10 +1,10 @@
 // script.js
 document.getElementById('loginForm').addEventListener('submit', async function(event) {
     event.preventDefault();
-    
+
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    
+
     const response = await fetch('https://sql.api.dbqz.xyz/login', {
         method: 'POST',
         headers: {
@@ -16,7 +16,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const result = await response.json();
 
     if (response.ok && result.success) {
-        window.location.href = '/wendang/web/61082520100415366X/web/';  // 跳转到成功页面
+        window.location.href = '/welcome.html';
     } else {
         alert('Login failed: ' + result.message);
     }

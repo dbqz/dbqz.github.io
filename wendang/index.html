@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +7,21 @@
     <link rel="stylesheet" href="/wendang/styles.css">
 </head>
 <body>
-    <div class="container">
+    <div class="login-container">
         <div class="login-box">
-            <h1>管理中心</h1>
+            <h2>定边七中｜文档中心</h2>
             <form id="loginForm">
-                <div class="textbox">
-                    <input type="text" id="username" placeholder="用户名" required>
+                <div class="input-container">
+                    <input type="text" id="username" required>
+                    <label for="username">用户名</label>
+                    <div class="input-underline"></div>
                 </div>
-                <div class="textbox">
-                    <input type="password" id="password" placeholder="密码" required>
+                <div class="input-container">
+                    <input type="password" id="password" required>
+                    <label for="password">密码</label>
+                    <div class="input-underline"></div>
                 </div>
-                <button type="submit" class="btn">登陆</button>
+                <button type="submit" class="login-btn">登陆</button>
             </form>
         </div>
     </div>
