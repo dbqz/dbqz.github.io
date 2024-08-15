@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 定边七中｜AI大模型</title>
+    <link rel="stylesheet" href="/ai/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1> AI数据大模型</h1>
+        <form id="promptForm">
+            <label for="promptInput">请输入你想要的图片:</label>
+            <input type="text" id="promptInput" name="prompt" placeholder="输入文字">
+            <button type="submit">生成</button>
+        </form>
+        <div class="result">
+            <img id="generatedImage" src="" alt="Generated Image" style="display:none;">
+        </div>
+    </div>
+
+    <script src="/ai/app.js"></script>
+</body>
+</html>
