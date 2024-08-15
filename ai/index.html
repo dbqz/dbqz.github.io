@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> 定边七中｜AI大模型</title>
-    <link rel="stylesheet" href="/ai/styles.css">
+<meta charset="UTF-8">
+<title>Image Display</title>
 </head>
 <body>
-    <div class="container">
-        <h1> AI数据大模型</h1>
-        <form id="promptForm">
-            <label for="promptInput">请输入你想要的图片:</label>
-            <input type="text" id="promptInput" name="prompt" placeholder="输入文字">
-            <button type="submit">生成</button>
-        </form>
-        <div class="result">
-            <img id="generatedImage" src="" alt="Generated Image" style="display:none;">
-        </div>
-    </div>
-
-    <script src="/ai/app.js"></script>
+<img id="generatedImage" src="" alt="Generated Image" style="display:none; max-width: 100%; height: auto;">
+<script>
+// 发送GET请求到后端获取图像
+fetch('https://ai.api.dbqz.xyz/')
+  .then(response => response.blob())
+  .then(blob => {
+    // 创建一个URL表示这个Blob对象
+    const imageUrl = URL.createObjectURL(blob);
+    // 设置img元素的src属性以显示图像
+    document.getElementById('generatedImage').src = imageUrl;
+    // 显示图像
+    document.getElementById('generatedImage').style.display = 'block';
+  })
+  .catch(error => console.error('Error fetching image:', error));
+</script>
 </body>
 </html>
