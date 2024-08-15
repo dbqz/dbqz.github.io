@@ -3,86 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>定边七中 ｜ 文档目录</title>
-    <style>
-        body {
-            font-family:Arial,sans-serif;
-            margin:20px;
-            display:flex;
-            flex-direction:column;
-            min-height:100vh
-            margin:0
-        }
-
-        
-        #footer {
-            background-color: #ffffff;
-            padding: 100px;
-            text-align: center;
-            margin-top: auto;
-            
-        }
-        h1{
-            color: #333;
-            margin-bottom:20px
-            
-        }
-        .file-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        
-        .file-item {
-            display: block;
-            padding: 10px;
-            background-color: #f5f5f5;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-        }
-        .file-item:hover {
-            background-color: #e0e0e0;
-        }
-        .file-name {
-            color: #007BFF;
-            text-decoration: none;
-        }
-        .file-name:hover {
-            text-decoration: underline;
-        }
-        
-        footer p {
-            margin: 5px 0;
-        }
-        
-    </style>
+    <title>定边七中｜文档中心</title>
+    <link rel="stylesheet" href="/wendang/styles.css">
 </head>
 <body>
-    <h2>学校信息文档</h2>
-    <ul class="file-list">
-        <li class="file-item"><a href="/wendang/neirong/dbqz.xlsx" download class="file-name">个人信息.xlsx</a></li> 
-    </ul>
+    <div class="container">
+        <div class="login-box">
+            <h1>管理中心</h1>
+            <form id="loginForm">
+                <div class="textbox">
+                    <input type="text" id="username" placeholder="用户名" required>
+                </div>
+                <div class="textbox">
+                    <input type="password" id="password" placeholder="密码" required>
+                </div>
+                <button type="submit" class="btn">登陆</button>
+            </form>
+        </div>
+    </div>
 
-    
-         <footer id="footer">
-        <span id="ipAddress"> IP加载中...</span>
-         </footer>
-
-    
-             <script>
-        function fetchIPAddress() {
-            // Use the ipify API to get the client's IP address.
-            fetch('https://api.ipify.org?format=json')
-                .then(response => response.json()) // Parse the response as JSON
-                .then(data => {
-                    document.getElementById('ipAddress').textContent = '您的IP地址为：' + data.ip;
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-        // Call the function when the page is loaded
-        window.onload = fetchIPAddress;
-    </script>
-    
+    <script src="/wendang/script.js"></script>
 </body>
 </html>
