@@ -16,7 +16,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const result = await response.json();
 
     if (response.ok && result.success) {
-        window.location.href = '/welcome.html';
+        window.location.href = '/wendang/web/61082520100415366X/web';
     } else {
         alert('Login failed: ' + result.message);
     }
