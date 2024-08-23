@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定边七中｜高波</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://pic.imgdb.cn/item/66bca24dd9c307b7e9d9386e.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            gap: 60px;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .photo {
+            width: 210px;
+            height: 300px;
+            border-radius: 22px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s, box-shadow 0.4s, filter 0.4s;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            filter: brightness(1.1);
+        }
+
+        #leftPhoto {
+            background-image: url('https://pic.imgdb.cn/item/66c897d0d9c307b7e9bcca6b.jpg');
+        }
+
+        #rightPhoto {
+            animation: photoChange 4.5s infinite;
+        }
+
+        @keyframes photoChange {
+            0% {
+                background-image: url('https://pic.imgdb.cn/item/66c8a2ead9c307b7e9cdd02e.jpg');
+            }
+            33% {
+                background-image: url('https://via.placeholder.com/300x400.png?text=Right+Photo+2');
+            }
+            66% {
+                background-image: url('https://via.placeholder.com/300x400.png?text=Right+Photo+3');
+            }
+            100% {
+                background-image: url('https://via.placeholder.com/300x400.png?text=Right+Photo+1');
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="leftPhoto" class="photo"></div>
+        <div id="rightPhoto" class="photo"></div>
+    </div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="//music.163.com/outchain/player?type=2&id=2115494884&auto=1&height=66"></iframe>
+</body>
+</html>
