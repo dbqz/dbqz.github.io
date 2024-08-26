@@ -8,92 +8,106 @@
         body, html {
             height: 100%;
             margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://pic.imgdb.cn/item/66cc8997d9c307b7e9bf371b.jpg') no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
-
             overflow: hidden;
         }
 
         .container {
-            width: 100%;
-            height: 100%;
+            width: 80%;
+            max-width: 1200px;
+            height: 500px;
             position: relative;
         }
 
-        .image-wrapper {
-            position: absolute;
-            width: 45%;
-            height: auto;
-            max-height: 70%;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: transform 4s ease-in-out;
-        }
-
-        .image-left {
-            left: 0;
-            border-radius: 20px 0 0 20px;
-            transform-origin: right;
-        }
-
-        .image-right {
-            right: 0;
-            border-radius: 0 20px 20px 0;
-            transform-origin: left;
-        }
-
         .image {
+            position: absolute;
+            width: 48%;
+            height: 100%;
+            border-radius: 20px;
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.3);
+            background-size: cover;
+            background-position: center;
+            transition: all 2s ease;
+        }
+
+        .left {
+            left: 0;
+            background-image: url('https://pic.imgdb.cn/item/66cc08b5d9c307b7e913d151.jpg');
+        }
+
+        .right {
+            right: 0;
+            background-image: url('https://pic.imgdb.cn/item/66cc05c4d9c307b7e91180a5.jpg');
+        }
+
+        .merged {
+            left: 50%;
+            transform: translateX(-50%);
             width: 100%;
-            height: auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: border-radius 4s ease-in-out;
-        }
-
-        .container:hover .image-left {
-            transform: translateX(50%);
+            height: 100%;
             border-radius: 0;
+            background-image: url('https://pic.imgdb.cn/item/66cc8861d9c307b7e9be274d.jpg');
         }
 
-        .container:hover .image-right {
+        .container:hover .left {
+            left: 50%;
             transform: translateX(-50%);
             border-radius: 0;
         }
 
-        .container:hover .image-left, 
-        .container:hover .image-right {
+        .container:hover .right {
+            right: 50%;
+            transform: translateX(50%);
+            border-radius: 0;
+        }
+
+        .container:hover .left, 
+        .container:hover .right {
+            width: 0%;
+            height: 0%;
             box-shadow: none;
         }
 
-        .container:hover .image-wrapper {
-            width: 50%;
-        }
-
-        .merged-image {
-            position: absolute;
-            width: 50%;
-            height: auto;
-            top: 50%;
-            left: 25%;
-            transform: translateY(-50%);
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-        }
-
-        .container:hover .merged-image {
+        .container:hover .merged {
             opacity: 1;
+        }
+
+        .merged {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transition: opacity 2s ease;
+        }
+        .parent-element {
+            position: relative;
+  /* 这里可以设置其他样式属性 */
+        }
+
+        .bottom-left {
+             position: absolute;
+             bottom: 0;
+             left: 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="image-wrapper image-left">
-            <img src="https://pic.imgdb.cn/item/66cc08b5d9c307b7e913d151.jpg" alt="Left Image" class="image">
-        </div>
-        <div class="image-wrapper image-right">
-            <img src="https://pic.imgdb.cn/item/66cc05c4d9c307b7e91180a5.jpg" alt="Right Image" class="image">
-        </div>
-        <img src="https://pic.imgdb.cn/item/66cc10b1d9c307b7e9204de1.jpg" alt="Merged Image" class="merged-image">
+        <div class="image left"></div>
+        <div class="image right"></div>
+        <div class="image merged"></div>
     </div>
+    
+    <div class="parent-element">
+  <iframe class="bottom-left" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=2071968153&auto=1&height=66"></iframe>
+</div>
+
 </body>
 </html>
