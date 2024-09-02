@@ -6,6 +6,31 @@
     <title> P.L.C Cloud</title>
     <link rel="icon" sizes="512x512" href="https://pic.imgdb.cn/item/66b4d163d9c307b7e9460066.png">
     <style>
+        .marquee-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 35px;
+            background-color: #00008B; /* 深蓝色背景 */
+            color: white; /* 文字颜色 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1000; /* 确保它在其他内容之上 */
+        }
+
+        .scrolling-text {
+            animation: marquee 10s linear infinite;
+            white-space: nowrap;
+            padding-left: 100%;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
         body {
             font-family: Arial, sans-serif;
             background: url('https://pic.imgdb.cn/item/66b4ce32d9c307b7e93f1fe5.jpg') no-repeat center center fixed;
@@ -104,6 +129,9 @@
     </style>
 </head>
 <body>
+     <div class="marquee-container">
+        <span class="scrolling-text">注意：总收录1296件档案，本网站仅用教学，一切违法行为，后果自负！</span>
+    </div>
     <div class="image-container">
   <img src="https://pic.imgdb.cn/item/66b4d50ed9c307b7e94da7f4.png" alt=PLC">
 </div>
