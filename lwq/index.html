@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定边县公安局</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: #0033cc;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .alert-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .alert-details {
+            width: 50%;
+        }
+
+        .alert-details h2 {
+            color: #ff0000;
+            font-size: 2em;
+        }
+
+        .alert-details p {
+            margin-bottom: 10px;
+        }
+
+        .background-image {
+            height: 300px;
+            background-image: url('https://s2.loli.net/2024/09/24/NEHScebJifdo38g.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            animation: fadeInBackground 3s ease-in-out forwards;
+        }
+
+        @keyframes fadeInBackground {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #333;
+            color: white;
+        }
+
+        .suspect-photo {
+            width: 200px;
+            height: 300px;
+            object-fit: cover;
+            border-radius:20%;
+            animation: fadePhotoIn 2s ease-in-out forwards;
+        }
+
+        @keyframes fadePhotoIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>定边县公安局</h1>
+    </header>
+    
+    
+    
+    <main>
+    				<section class="background-image">
+            <!-- 背景图可以使用CSS来设置 -->
+        </section>
+        <section class="alert-info">
+            <img class="suspect-photo" src="https://s2.loli.net/2024/09/24/3WaJdVuiKFDzenw.jpg" alt="嫌疑人照片">
+            <div class="alert-details">
+                <h2>主谋罪犯</h2>
+               <p>【案件编号】：20240924-007-A 
+               </p>
+                <p>【描述】：张浩（男，15岁，学生）</p>
+                <p>【地点】：定边七中九年级6班教室 </p>
+                <p>【时间】：2024年9月25日</p>
+                <p>【案件描述】：
+                2024年9月24日晚，本县公安局接到报警称，定边县第七中学发生一起严重刑事案件。 经初步调查，该校学生张浩涉嫌对同班同学李文庆实施严重侵犯行为。 当晚，张浩在教室内对李文庆进行了严重的身体侵害，导致李文庆受到极大的身心伤害。 张浩已被控制，案件正在进一步调查中。</p>
+            </div>
+        </section>
+        
+        
+        
+        
+          <main>
+        <section class="alert-info">
+            <img class="suspect-photo" src="https://s2.loli.net/2024/09/24/6DoB9RQi35gOE4r.jpg" alt="嫌疑人照片">
+            <div class="alert-details">
+                <h2>甲级罪犯</h2>
+                <p>【案件编号】：20240924-007-A 
+               </p>
+                <p>描述：李文庆（男，15岁，学生）</p>
+                <p>地点：定边七中一楼东小厕所</p>
+                <p>时间：2024年9月25日</p>
+                <p>案件描述：2024年9月25日，本县公安局接到报警称，定边县第七中学学生李文庆因大出血不幸去世。经初步调查，李文庆此前遭受严重侵犯，并且在事件发生后出现健康状况恶化。李文庆在25日凌晨被送往医院救治，但由于伤势过重，最终不幸去世。案件正在进一步调查中。</p>
+            </div>
+        </section>
+        
+        
+        
+          <main>
+        <section class="alert-info">
+            <img class="suspect-photo" src="https://s2.loli.net/2024/09/24/8UX6afNYzCckAR9.jpg" alt="嫌疑人照片">
+            <div class="alert-details">
+                <h2>丙级罪犯</h2>
+                <p>【案件编号】：20240924-007-A 
+               </p>
+                <p>描述：杨思程（男，15岁，学生）</p>
+                <p>地点：定边七中东厕所</p>
+                <p>时间：2024年9月24日</p>
+                <p>案件描述：2024年9月25日，本县公安局接到报警称，定边县第七中学学生杨思程涉嫌参与一起严重刑事案件。经初步调查，杨思程涉嫌对李文庆实施了不当行为，导致其不幸去世。杨思程在25日下午对李文庆进行了不当干预，导致李文庆伤势加重并最终不幸去世。杨思程已被控制，案件正在进一步调查中。</p>
+            </div>
+        </section>
+        
+        
+        
+        
+        
+        
+        
+       
+        <button onclick="toggleAlert()">显示/隐藏详情</button>
+    </main>
+    <footer>
+        <p>版权所有 © 2024 定边县公安局</p>
+    </footer>
+
+    <script>
+        function toggleAlert() {
+            var alertDetails = document.querySelector('.alert-details');
+            var alertInfo = document.querySelector('.alert-info');
+
+            if (alertDetails.style.display === "none") {
+                alertDetails.style.display = "block";
+                alertInfo.style.backgroundColor = "#fff";
+            } else {
+                alertDetails.style.display = "none";
+                alertInfo.style.backgroundColor = "#fddddd";
+            }
+        }
+    </script>
+</body>
+</html>
