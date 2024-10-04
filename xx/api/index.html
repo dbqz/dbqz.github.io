@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>dbqz xx API </title>
+    <title>Excel查询</title>
     <style>
         .result-row {
             margin-bottom: 5px;
@@ -21,13 +21,16 @@
     </style>
 </head>
 <body>
+    <input type="text" id="searchInput" placeholder="输入姓名查询">
+    <button id="searchButton">查询</button>
     <div id="result"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/jszip.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script>
         let workbook;
 
-        // 检查URL参数
+        // 获取URL参数
         function getParameterByName(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, '\\$&');
@@ -40,22 +43,25 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const filePath = 'https://dbqz.xyz/xx/sqlhtmlwebapp.xlsx';
+
+            // 加载Excel文件
             fetch(filePath)
                 .then(response => response.arrayBuffer())
                 .then(data => {
                     workbook = XLSX.read(data, { type: 'array' });
-                    // 使用URL参数进行查询
-                    const name = getParameterByName('name');
-                    if (name) {
-                        document.getElementById('searchInput').value = name;
-                        document.getElementById('searchButton').click();
+                    
+                    // 检查URL参数并在页面加载时自动执行搜索
+                    const nameFromURL = getParameterByName('name');
+                    if (nameFromURL) {
+                        document.getElementById('searchInput').value = nameFromURL;
+                        searchForName(nameFromURL);
                     }
                 })
                 .catch(error => console.error('Error:', error));
         });
 
-        document.getElementById('searchButton').addEventListener('click', function() {
-            const name = document.getElementById('searchInput').value.trim();
+        // 查询函数
+        function searchForName(name) {
             if (name === '') {
                 alert('请输入姓名');
                 return;
@@ -79,6 +85,12 @@
             } else {
                 document.getElementById('result').innerHTML = `<div class="fade-in">未找到该生的信息</div>`;
             }
+        }
+
+        // 绑定按钮点击事件
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const name = document.getElementById('searchInput').value.trim();
+            searchForName(name);
         });
     </script>
 </body>
