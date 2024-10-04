@@ -124,26 +124,17 @@ async function fetchWeatherData(position) {
         lon = 16.787;
     }
 
-    const url = 'https://api.windy.com/api/point-forecast/v2'; // 替换为您要请求的实际API地址
+    const url = 'https://api.windy.com/api/point-forecast/v2'; // Windy API 地址
     const apiKey = 'FtHvMl5hYAPDmt65iocoycUVXH5feiGb'; // 替换为您的API密钥
-    const model = 'desired_model';
-    const parameters = ['desired_parameter_1', 'desired_parameter_2'];
-    const levels = ['optionally_desired_gh_level_1'];
+    const parameters = ['temp', 'wind', 'pressure', 'humidity']; // 您感兴趣的参数
+    const levels = ['surface']; // 您感兴趣的层次
 
     try {
-        const response = await fetch(url, {
-            method: 'POST',
+        const response = await fetch(`${url}?lat=${lat}&lon=${lon}&parameters=${parameters.join(',')}&levels=${levels.join(',')}&key=${apiKey}`, {
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                lat,
-                lon,
-                model,
-                parameters,
-                levels,
-                key: apiKey
-            })
+                'Accept': 'application/json'
+            }
         });
 
         if (response.ok) {
