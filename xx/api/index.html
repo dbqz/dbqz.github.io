@@ -2,10 +2,10 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>API查询</title>
+    <title>Excel查询</title>
 </head>
 <body>
-    <div id="result"></div>
+    <textarea id="result" cols="30" rows="10" readonly></textarea>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/jszip.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
@@ -57,14 +57,23 @@
             const rows = jsonData.slice(1);
             const result = rows.find(row => row.includes(name));
             if (result) {
-                const resultHTML = result.map((item, index) => {
-                    const headerText = headers[index] === "姓名" ? "学生姓名" : headers[index];
-                    const contentText = item !== undefined ? item : '数据缺失';
-                    return `<div><span class="result-header">${headerText}:</span> <span class="result-content">${contentText}</span></div>`;
-                }).join('');
-                document.getElementById('result').innerHTML = resultHTML;
+                let resultText = '';
+                for (let i = 0; i < result.length; i++) {
+                    const headerText = headers[i] === "姓名" ? "学生姓名" : headers[i];
+                    resultText += `${headerText}: ${result[i]}\n`;
+                }
+                document.getElementById('result').value = resultText;
+                
+                // 更改网页标题为查询到的学生姓名
+                document.title = `查询结果 - ${result[0]}`;
+                
+                // 输出纯文本结果
+                document.write(resultText);
+                document.close();
             } else {
-                document.getElementById('result').innerHTML = '<div>未找到该生的信息</div>';
+                document.getElementById('result').value = '未找到该生的信息';
+                document.title = '查询结果 - 未找到';
+                document.write('未找到该生的信息');
             }
         }
     </script>
