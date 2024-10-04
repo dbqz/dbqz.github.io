@@ -49,7 +49,7 @@ button:hover {
 }
 
 .weather-item {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     padding: 10px;
     background-color: #f9f9f9;
     border-radius: 5px;
@@ -59,25 +59,21 @@ button:hover {
 .weather-item h3 {
     font-size: 18px;
     margin-bottom: 5px;
+    cursor: pointer;
 }
 
-.weather-item p {
+.weather-item .details {
+    display: none;
+    margin-top: 10px;
+}
+
+.weather-item .details p {
     font-size: 14px;
     margin: 5px 0;
 }
 
-.details {
-    display: none;
-}
-
-.details.show {
+.weather-item .details.show {
     display: block;
-}
-
-.details-toggle {
-    cursor: pointer;
-    color: #007bff;
-    text-decoration: underline;
 }
 </style>
 </head>
@@ -173,32 +169,27 @@ function displayWeatherData(data) {
 
         const header = document.createElement('h3');
         header.textContent = key;
-
-        const detailsToggle = document.createElement('span');
-        detailsToggle.className = 'details-toggle';
-        detailsToggle.textContent = '显示详细信息';
-        detailsToggle.onclick = () => {
+        header.onclick = () => {
             const details = item.querySelector('.details');
-            if (details.classList.contains('show')) {
-                details.classList.remove('show');
-                detailsToggle.textContent = '显示详细信息';
-            } else {
-                details.classList.add('show');
-                detailsToggle.textContent = '隐藏详细信息';
-            }
+            details.classList.toggle('show');
         };
 
         const details = document.createElement('div');
         details.className = 'details';
 
-        for (let subKey in data[key]) {
+        if (typeof data[key] === 'object' && !Array.isArray(data[key])) {
+            for (let subKey in data[key]) {
+                const detail = document.createElement('p');
+                detail.textContent = `${subKey}: ${data[key][subKey]}`;
+                details.appendChild(detail);
+            }
+        } else {
             const detail = document.createElement('p');
-            detail.textContent = `${subKey}: ${data[key][subKey]}`;
+            detail.textContent = `${data[key]}`;
             details.appendChild(detail);
         }
 
         item.appendChild(header);
-        item.appendChild(detailsToggle);
         item.appendChild(details);
 
         container.appendChild(item);
