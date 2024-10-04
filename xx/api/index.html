@@ -2,27 +2,9 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Excel查询</title>
-    <style>
-        .result-row {
-            margin-bottom: 5px;
-        }
-        .fade-in {
-            animation: fadeIn ease 2s;
-            -webkit-animation: fadeIn ease 2s;
-            -moz-animation: fadeIn ease 2s;
-            -o-animation: fadeIn ease 2s;
-            -ms-animation: fadeIn ease 2s;
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-    </style>
+    <title>API</title>
 </head>
 <body>
-    <input type="text" id="searchInput" placeholder="输入姓名查询">
-    <button id="searchButton">查询</button>
     <div id="result"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/jszip.js"></script>
@@ -53,7 +35,6 @@
                     // 检查URL参数并在页面加载时自动执行搜索
                     const nameFromURL = getParameterByName('name');
                     if (nameFromURL) {
-                        document.getElementById('searchInput').value = nameFromURL;
                         searchForName(nameFromURL);
                     }
                 })
@@ -79,19 +60,13 @@
                 const resultHTML = result.map((item, index) => {
                     const headerText = headers[index] === "姓名" ? "学生姓名" : headers[index];
                     const contentText = item !== undefined ? item : '数据缺失';
-                    return `<div class="result-row"><span class="result-header">${headerText}:</span> <span class="result-content">${contentText}</span></div>`;
+                    return `<div><span class="result-header">${headerText}:</span> <span class="result-content">${contentText}</span></div>`;
                 }).join('');
-                document.getElementById('result').innerHTML = `<div class="fade-in">${resultHTML}</div>`;
+                document.getElementById('result').innerHTML = resultHTML;
             } else {
-                document.getElementById('result').innerHTML = `<div class="fade-in">未找到该生的信息</div>`;
+                document.getElementById('result').innerHTML = '<div>未找到该生的信息</div>';
             }
         }
-
-        // 绑定按钮点击事件
-        document.getElementById('searchButton').addEventListener('click', function() {
-            const name = document.getElementById('searchInput').value.trim();
-            searchForName(name);
-        });
     </script>
 </body>
 </html>
