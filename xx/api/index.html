@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>dbqz xx API </title>
+    <style>
+        .result-row {
+            margin-bottom: 5px;
+        }
+        .fade-in {
+            animation: fadeIn ease 2s;
+            -webkit-animation: fadeIn ease 2s;
+            -moz-animation: fadeIn ease 2s;
+            -o-animation: fadeIn ease 2s;
+            -ms-animation: fadeIn ease 2s;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="result"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script>
+        let workbook;
+
+        // 检查URL参数
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const filePath = 'https://dbqz.xyz/xx/sqlhtmlwebapp.xlsx';
+            fetch(filePath)
+                .then(response => response.arrayBuffer())
+                .then(data => {
+                    workbook = XLSX.read(data, { type: 'array' });
+                    // 使用URL参数进行查询
+                    const name = getParameterByName('name');
+                    if (name) {
+                        document.getElementById('searchInput').value = name;
+                        document.getElementById('searchButton').click();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const name = document.getElementById('searchInput').value.trim();
+            if (name === '') {
+                alert('请输入姓名');
+                return;
+            }
+            if (!workbook) {
+                alert('未加载');
+                return;
+            }
+            const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+            const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+            const headers = jsonData[0];
+            const rows = jsonData.slice(1);
+            const result = rows.find(row => row.includes(name));
+            if (result) {
+                const resultHTML = result.map((item, index) => {
+                    const headerText = headers[index] === "姓名" ? "学生姓名" : headers[index];
+                    const contentText = item !== undefined ? item : '数据缺失';
+                    return `<div class="result-row"><span class="result-header">${headerText}:</span> <span class="result-content">${contentText}</span></div>`;
+                }).join('');
+                document.getElementById('result').innerHTML = `<div class="fade-in">${resultHTML}</div>`;
+            } else {
+                document.getElementById('result').innerHTML = `<div class="fade-in">未找到该生的信息</div>`;
+            }
+        });
+    </script>
+</body>
+</html>
