@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天气数据</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#weatherData {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.weather-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border-left: 4px solid #007bff;
+}
+
+.weather-item h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.weather-item p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.details {
+    display: none;
+}
+
+.details.show {
+    display: block;
+}
+
+.details-toggle {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>获取天气数据</h1>
+    <button onclick="getUserLocation()">获取天气</button>
+    <div id="weatherData"></div>
+</div>
+
+<script>
+// 获取用户地理位置
+function getUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(fetchWeatherData, handleLocationError);
+    } else {
+        alert("此浏览器不支持地理位置功能。");
+    }
+}
+
+// 处理地理位置错误
+function handleLocationError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            alert("用户拒绝了地理位置请求。");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            alert("无法获取位置信息。");
+            break;
+        case error.TIMEOUT:
+            alert("获取用户位置超时。");
+            break;
+        case error.UNKNOWN_ERROR:
+            alert("发生未知错误。");
+            break;
+    }
+}
+
+// 发送请求获取天气数据
+async function fetchWeatherData(position) {
+    let lat, lon;
+    if (position) {
+        lat = position.coords.latitude;
+        lon = position.coords.longitude;
+    } else {
+        // 如果没有提供位置信息，则使用默认值
+        lat = 49.809;
+        lon = 16.787;
+    }
+
+    const url = 'https://api.windy.com/api/point-forecast/v2'; // 替换为您要请求的实际API地址
+    const apiKey = 'FtHvMl5hYAPDmt65iocoycUVXH5feiGb'; // 替换为您的API密钥
+    const model = 'desired_model';
+    const parameters = ['desired_parameter_1', 'desired_parameter_2'];
+    const levels = ['optionally_desired_gh_level_1'];
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                lat,
+                lon,
+                model,
+                parameters,
+                levels,
+                key: apiKey
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            displayWeatherData(data);
+        } else {
+            console.error('获取天气数据失败:', response.statusText);
+        }
+    } catch (error) {
+        console.error('请求失败:', error);
+    }
+}
+
+// 显示天气数据
+function displayWeatherData(data) {
+    const container = document.getElementById('weatherData');
+    container.innerHTML = ''; // 清空现有内容
+
+    // 假设返回的数据结构是JSON对象
+    for (let key in data) {
+        const item = document.createElement('div');
+        item.className = 'weather-item';
+
+        const header = document.createElement('h3');
+        header.textContent = key;
+
+        const detailsToggle = document.createElement('span');
+        detailsToggle.className = 'details-toggle';
+        detailsToggle.textContent = '显示详细信息';
+        detailsToggle.onclick = () => {
+            const details = item.querySelector('.details');
+            if (details.classList.contains('show')) {
+                details.classList.remove('show');
+                detailsToggle.textContent = '显示详细信息';
+            } else {
+                details.classList.add('show');
+                detailsToggle.textContent = '隐藏详细信息';
+            }
+        };
+
+        const details = document.createElement('div');
+        details.className = 'details';
+
+        for (let subKey in data[key]) {
+            const detail = document.createElement('p');
+            detail.textContent = `${subKey}: ${data[key][subKey]}`;
+            details.appendChild(detail);
+        }
+
+        item.appendChild(header);
+        item.appendChild(detailsToggle);
+        item.appendChild(details);
+
+        container.appendChild(item);
+    }
+}
+</script>
+</body>
+</html>
