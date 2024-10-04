@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    
+    <title>id</title>
 </head>
 <body>
     <div id="result"></div>
@@ -12,7 +12,7 @@
     <script>
         let workbook;
 
-        // 获取URL参数
+        
         function getParameterByName(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, '\\$&');
@@ -26,13 +26,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             const filePath = 'https://dbqz.xyz/xx/sqlhtmlwebapp.xlsx';
 
-            // 加载Excel文件
+            
             fetch(filePath)
                 .then(response => response.arrayBuffer())
                 .then(data => {
                     workbook = XLSX.read(data, { type: 'array' });
                     
-                    // 检查URL参数并在页面加载时自动执行搜索
+                    
                     const nameFromURL = getParameterByName('name');
                     if (nameFromURL) {
                         searchForName(nameFromURL);
@@ -41,7 +41,7 @@
                 .catch(error => console.error('Error:', error));
         });
 
-        // 查询函数
+        
         function searchForName(name) {
             if (name === '') {
                 alert('请输入姓名');
@@ -64,7 +64,7 @@
                 }).join('');
                 document.getElementById('result').innerHTML = resultHTML;
             } else {
-                document.getElementById('result').innerHTML = '<div>未找到该生的信息</div>';
+                document.getElementById('result').innerHTML = '<div>API错误</div>';
             }
         }
     </script>
