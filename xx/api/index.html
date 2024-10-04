@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>api</title>
+    <title>Excel查询</title>
 </head>
 <body>
     <textarea id="result" cols="30" rows="10" readonly></textarea>
@@ -63,8 +63,17 @@
                     resultText += `${headerText}: ${result[i]}\n`;
                 }
                 document.getElementById('result').value = resultText;
+                
+                // 更改网页标题为查询到的学生姓名
+                document.title = `查询结果 - ${result[0]}`;
+                
+                // 输出纯文本结果
+                document.write(resultText);
+                document.close();
             } else {
                 document.getElementById('result').value = '未找到该生的信息';
+                document.title = '查询结果 - 未找到';
+                document.write('未找到该生的信息');
             }
         }
     </script>
