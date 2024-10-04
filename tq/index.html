@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定边七中｜天气预报</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            transition: background-color 0.5s ease;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #weather p {
+            margin: 10px 0;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+
+        #weather p:hover {
+            color: #007bff;
+        }
+
+        #location,
+        #temperature,
+        #humidity,
+        #wind,
+        #rain,
+        #airQuality {
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* 按钮样式 */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        /* 加载指示器 */
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 2s linear infinite;
+            display: none;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 错误消息 */
+        .error-message {
+            color: red;
+            font-weight: bold;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>天气预报</h1>
+        <div id="weather">
+            <p id="location">加载中...</p>
+            <p id="temperature">加载中...</p>
+            <p id="humidity">加载中...</p>
+            <p id="wind">加载中...</p>
+            <p id="rain">加载中...</p>
+            <p id="airQuality">加载中...</p>
+        </div>
+        <button class="button" onclick="refreshWeather()">刷新天气</button>
+        <div class="loader" id="loader"></div>
+        <p class="error-message" id="error-message"></p>
+    </div>
+    <script>
+        let intervalId;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchWeather();
+            startAutoUpdate();
+        });
+
+        function fetchWeather() {
+            showLoader();
+            hideErrorMessage();
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, error);
+            } else {
+                showError('浏览器不支持地理定位');
+            }
+
+            function success(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,precipitation`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.current_weather) {
+                            const currentWeather = data.current_weather;
+                            updateUI(currentWeather, data.hourly);
+                        } else {
+                            showError('无法获取天气信息');
+                        }
+                    })
+                    .catch(error => {
+                        showError('无法获取天气信息');
+                    })
+                    .finally(() => {
+                        hideLoader();
+                    });
+            }
+
+            function error() {
+                showError('无法获取位置信息');
+            }
+        }
+
+        function refreshWeather() {
+            fetchWeather();
+        }
+
+        function updateUI(currentWeather, hourlyData) {
+            document.getElementById('location').innerHTML = `地点: ${currentWeather.station_id} (纬度: ${currentWeather.latitude}, 经度: ${currentWeather.longitude})`;
+            document.getElementById('temperature').innerHTML = `温度: ${currentWeather.temperature}°C`;
+            document.getElementById('humidity').innerHTML = `湿度: ${hourlyData.relativehumidity_2m[0]}%`;
+            document.getElementById('wind').innerHTML = `风速: ${currentWeather.windspeed} km/h, 风向: ${currentWeather.winddirection}°`;
+            document.getElementById('rain').innerHTML = `降雨量: ${hourlyData.precipitation[0]} mm`;
+            document.getElementById('airQuality').innerHTML = `空气质量: 数据暂无`; // Open-Meteo 不提供空气质量数据
+            // 可以在这里添加更多天气信息
+        }
+
+        function showLoader() {
+            document.getElementById('loader').style.display = 'block';
+        }
+
+        function hideLoader() {
+            document.getElementById('loader').style.display = 'none';
+        }
+
+        function showError(message) {
+            document.getElementById('error-message').innerText = message;
+            document.getElementById('error-message').style.display = 'block';
+        }
+
+        function hideErrorMessage() {
+            document.getElementById('error-message').style.display = 'none';
+        }
+
+        function startAutoUpdate() {
+            // 每5分钟（300000毫秒）自动刷新天气信息
+            intervalId = setInterval(fetchWeather, 300000);
+        }
+
+        function stopAutoUpdate() {
+            clearInterval(intervalId);
+        }
+
+        // 当页面关闭或刷新时停止自动更新
+        window.addEventListener('beforeunload', stopAutoUpdate);
+    </script>
+</body>
+</html>
