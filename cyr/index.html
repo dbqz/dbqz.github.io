@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>three.js css3d - periodic table</title>
@@ -109,22 +109,22 @@
 			.show_info .info_my .info_mem > div{text-align: left;}
 			.show_info .info_my .info_mem > div.nickname{max-width: 120px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 		</style>
-		<link rel="stylesheet" href="css/animate.min.css">
+		<link rel="stylesheet" href="/cyr/css/animate.min.css">
 	</head>
 	<body>
-		<script src="js/jquery.min.js"></script>
-		<script src="js/three.js"></script>
-		<script src="js/tween.min.js"></script>
-		<script src="js/TrackballControls.js"></script>
-		<script src="js/CSS3DRenderer.js"></script>
+		<script src="/cyr/js/jquery.min.js"></script>
+		<script src="/cyr/js/three.js"></script>
+		<script src="/cyr/js/tween.min.js"></script>
+		<script src="/cyr/js/TrackballControls.js"></script>
+		<script src="/cyr/js/CSS3DRenderer.js"></script>
 
 		<div id="container"></div>
-		<div id="info">迪丽热巴yyds</div>
+		<div id="info">CYR</div>
 		<div id="menu">
-			<button id="table">可爱</button>
-			<button id="sphere">好看</button>
-			<button id="helix">漂亮</button>
-			<button id="grid">美丽</button>
+			<button id="table">我的一辈子</button>
+			<button id="sphere">我的一辈子</button>
+			<button id="helix">我的一辈子</button>
+			<button id="grid">我的一辈子</button>
 		</div>
 						
 				</div>
@@ -153,7 +153,7 @@
 					$('.show_info').removeClass(_in[rand_in]);
 					// 更改展示的图片
 					var img = document.getElementsByClassName('element')[CurPersonNum].getElementsByTagName('img')[0];
-					img.setAttribute('src','img/a.png');
+					img.setAttribute('src','https://s2.loli.net/2024/10/06/FcJRjlXWm9TxNVQ.jpg');
 					++CurPersonNum;
 					setTimeout(function(){
 						$('.show_info').addClass(_out[rand_out]);
@@ -168,7 +168,7 @@
 			// 生成虚拟数据
 	        for(var i=0;i<199;i++){
 				personArray.push({
-		            image: "img/a.png"
+		            image: "https://s2.loli.net/2024/10/06/FcJRjlXWm9TxNVQ.jpg"
 		        });
 	        }
 
