@@ -1,142 +1,73 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>班长</title>
-<style>
-/* 基础样式 */
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-    font-family: 'Arial', sans-serif; /* 设置字体 */
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* 背景渐变色 */
-}
-
-/* 滑块容器 */
-.slider {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2); /* 添加阴影效果 */
-}
-
-/* 图片滑块 */
-.slides {
-    display: flex;
-    transition: transform 1s ease-in-out;
-    width: 400%; /* 假设有四张图片 */
-    will-change: transform; /* 提高性能 */
-}
-
-.slides img {
-    width: 25%;
-    object-fit: cover;
-    height: 100%;
-    filter: grayscale(50%); /* 默认灰度效果 */
-    transition: filter 0.5s; /* 过渡效果 */
-}
-
-/* 当图片处于当前显示状态时，移除灰度 */
-.slides img.active {
-    filter: grayscale(0%);
-}
-
-/* 控制按钮 */
-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 20px 20px;
-    z-index: 100;
-    border-radius: 50%; /* 圆形按钮 */
-    transition: background-color 0.3s; /* 颜色过渡效果 */
-}
-
-button:hover {
-    background-color: rgba(0,0,0,0.7); /* 鼠标悬停时加深颜色 */
-}
-
-.prev {
-    left: 10px;
-}
-
-.next {
-    right: 10px;
-}
-
-/* 添加一些装饰性元素 */
-.decoration {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* 文字阴影 */
-    font-size: 1.5em;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .decoration {
-        font-size: 1em;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xcx</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        .slideshow-container {
+            position: relative;
+            width: 60%;
+            max-height: 80vh;
+            overflow: hidden;
+        }
+        .slide {
+            display: none;
+            width: 100%;
+            height: auto;
+        }
+        .active-slide {
+            display: block;
+        }
+        .music-player {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
 </head>
 <body>
-<div class="slider">
-    <div class="slides">
-        <img src="https://pic.imgdb.cn/item/6701e4e4d29ded1a8cb26b3e.jpg" alt="Image 1">
-        <img src="https://pic.imgdb.cn/item/6701e4e4d29ded1a8cb26b5d.jpg" alt="Image 2">
-        <img src="https://pic.imgdb.cn/item/6701e4e4d29ded1a8cb26b75.jpg" alt="Image 3">
-        <img src="https://pic.imgdb.cn/item/6701e4e4d29ded1a8cb26bac.jpg" alt="Image 4">
-          <img src="https://pic.imgdb.cn/item/6701e4e4d29ded1a8cb26bbb.jpg" alt="Image 5">
+    <div class="slideshow-container">
+        <img src="https://pic.imgdb.cn/item/6701e4e4d29ded1a8cb26b3e.jpg" alt="Slide 1" class="slide active-slide">
+        <img src="https://pic.imgdb.cn/item/6701e4e4d29ded1a8cb26b5d.jpg" alt="Slide 2" class="slide">
+        <img src="https://pic.imgdb.cn/item/6701e4e4d29ded1a8cb26b75.jpg" alt="Slide 3" class="slide">
+        <img src="https://pic.imgdb.cn/item/6701e4e4d29ded1a8cb26bac.jpg" alt="Slide 4" class="slide">
+        <img src="https://pic.imgdb.cn/item/6701e4e4d29ded1a8cb26bbb.jpg" alt="Slide 5" class="slide">
     </div>
-    <button class="prev">❮</button>
-    <button class="next">❯</button>
-    <div class="decoration">谢晨曦</div> <!-- 新增的装饰性元素 -->
-</div>
+    <audio id="background-music" src="/xsx/1.mp3" loop autoplay></audio>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const slides = document.querySelector('.slides');
-    const images = slides.querySelectorAll('img');
-    let currentIndex = 0;
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlideIndex = 0;
 
-    function moveToSlide(index) {
-        if (index >= images.length) index = 0;
-        if (index < 0) index = images.length - 1;
-        currentIndex = index;
-        slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active-slide'));
+            slides[index].classList.add('active-slide');
+        }
 
-        // 移除所有活动状态，并给当前图片添加活动状态
-        images.forEach(img => img.classList.remove('active'));
-        images[currentIndex].classList.add('active');
-    }
+        function nextSlide() {
+            if (currentSlideIndex === slides.length - 1) {
+                currentSlideIndex = 0;
+            } else {
+                currentSlideIndex++;
+            }
+            showSlide(currentSlideIndex);
+        }
 
-    document.querySelector('.prev').addEventListener('click', () => {
-        moveToSlide(currentIndex - 1);
-    });
+        setInterval(nextSlide, 3000); // Change slide every 3 seconds
 
-    document.querySelector('.next').addEventListener('click', () => {
-        moveToSlide(currentIndex + 1);
-    });
-
-    // 自动播放
-    setInterval(() => {
-        moveToSlide(currentIndex + 1);
-    }, 3000); // 每3秒自动切换到下一张图片
-});
-</script>
+        const musicPlayer = document.getElementById('background-music');
+        musicPlayer.volume = 0.5; // Set the volume to 50%
+    </script>
 </body>
 </html>
