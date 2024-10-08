@@ -2,69 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>获取外链</title>
+    <title>Image Upload</title>
     <style>
-        /* 可选的简单样式 */
-        body { font-family: Arial, sans-serif; }
-        button { margin-top: 1rem; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input[type=file] {
+            display: block;
+            margin-bottom: 20px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <h2>外链</h2>
-    <form id="uploadForm">
-        <label for="imageUpload">选择图片:</label>
-        <input type="file" id="imageUpload" name="file" accept="image/*">
-        <button type="submit">上传图片</button>
-    </form>
-    <div id="resultArea" style="display:none;">
-        <h2>图片外链:</h2>
-        <p id="linkResult"></p>
+    <h1>Upload Image to Server</h1>
+    <div class="container">
+        <input type="file" id="imageFile" accept="image/*">
+        <button onclick="uploadImage()">Upload</button>
+        <div class="result" id="result"></div>
     </div>
 
     <script>
-        // 获取DOM元素引用
-        const form = document.getElementById("uploadForm");
-        const imageUpload = document.getElementById("imageUpload");
-        const resultArea = document.getElementById("resultArea");
-        const linkResult = document.getElementById("linkResult");
-
-        // 处理表单提交事件
-        form.addEventListener("submit", async function(event) {
-            event.preventDefault(); // 阻止默认的表单提交行为
-
-            // 检查是否有文件被选中
-            if (!imageUpload.files.length) {
-                alert("请先选择要上传的图片！");
+        function uploadImage() {
+            var fileInput = document.getElementById('imageFile');
+            if (fileInput.files.length === 0) {
+                alert("Please select an image.");
                 return;
             }
 
-            // 创建FormData对象来存储文件数据
-            const formData = new FormData();
-            formData.append("file", imageUpload.files[0]);
+            var formData = new FormData();
+            formData.append('file', fileInput.files[0]);
 
-            try {
-                // 发送POST请求到API
-                const response = await fetch("https://api.uomg.com/api/image.baidu", {
-                    method: "POST",
-                    body: formData,
-                });
-
-                // 解析JSON响应
-                const data = await response.json();
-
-                // 根据API返回的结果更新UI
-                if (data.code === "1") {
-                    resultArea.style.display = "block";
-                    linkResult.textContent = `![](https://graph.baidu.com/${data.imgurl})`;
-                } else {
-                    alert(`上传失败: ${data.msg}`);
+            $.ajax({
+                url: 'https://api.uomg.com/api/image.baidu',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    $('#result').text(JSON.stringify(response));
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
                 }
-            } catch (error) {
-                console.error("An error occurred:", error);
-                alert("发生错误，请稍后重试。");
-            }
-        });
+            });
+        }
     </script>
 </body>
 </html>
