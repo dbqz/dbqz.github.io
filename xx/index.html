@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> P.L.C Cloud</title>
+    <title>P.L.C Cloud</title>
     <link rel="icon" sizes="512x512" href="https://pic.imgdb.cn/item/66b4d163d9c307b7e9460066.png">
     <style>
         .marquee-container {
@@ -12,13 +12,13 @@
             left: 0;
             width: 100%;
             height: 35px;
-            background-color: #00008B; /* 深蓝色背景 */
-            color: white; /* 文字颜色 */
+            background-color: #00008B;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            z-index: 1000; /* 确保它在其他内容之上 */
+            z-index: 1000;
         }
 
         .scrolling-text {
@@ -31,9 +31,10 @@
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
+
         body {
             font-family: Arial, sans-serif;
-            background: url('https://s2.loli.net/2024/08/08/iofFvYDUTJwgVeN.jpg") no-repeat center center fixed;
+            background: url("https://s2.loli.net/2024/08/08/iofFvYDUTJwgVeN.jpg") no-repeat center center fixed;
             background-size: cover;
             color: white;
             display: flex;
@@ -57,9 +58,10 @@
             font-size: 2rem;
         }
 
-        h3{
+        h3 {
             text-align: center;
         }
+
         #searchInput {
             width: 100%;
             padding: 7px;
@@ -74,7 +76,7 @@
             padding: 9px;
             border: none;
             border-radius: 100px;
-            background-color:  #0056b3;
+            background-color: #0056b3;
             color: white;
             font-size: 15px;
             cursor: pointer;
@@ -82,7 +84,7 @@
         }
 
         #searchButton:hover {
-            background-color:  	#1E90FF;
+            background-color: #1E90FF;
         }
 
         #result {
@@ -115,26 +117,26 @@
             margin-left: 2px;
             font-size: 11px;
         }
-          .image-container {
-    position: absolute; /* 绝对定位 */
-    top: 35px; /* 顶部对齐 */
-    left: 6px; /* 左侧对齐 */
-  }
 
-  /* 设置图片样式 */
-  .image-container img {
-    width: 240px; /* 设置图片宽度 */
-    height: auto; /* 高度自动调整以保持图片比例 */
-  }
+        .image-container {
+            position: absolute;
+            top: 35px;
+            left: 6px;
+        }
+
+        .image-container img {
+            width: 240px;
+            height: auto;
+        }
     </style>
 </head>
 <body>
-     <div class="marquee-container">
+    <div class="marquee-container">
         <span class="scrolling-text">注意：总收录1296件档案，本网站仅用教学，一切违法行为，后果自负！</span>
     </div>
     <div class="image-container">
-  <img src="" alt=PLC">
-</div>
+        <img src="https://s2.loli.net/2024/08/08/dvTYjzcuCi3WFgq.png" alt="PLC">
+    </div>
 
     <div id="container">
         <h3>定边七中｜P.L.C</h3>
@@ -150,11 +152,20 @@
         document.addEventListener('DOMContentLoaded', function() {
             const filePath = 'https://cn.dbqz.xyz/xx/sqlhtmlwebapp.xlsx';
             fetch(filePath)
-                .then(response => response.arrayBuffer())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('网络响应不正确');
+                    }
+                    return response.arrayBuffer();
+                })
                 .then(data => {
                     workbook = XLSX.read(data, { type: 'array' });
+                    console.log('Excel文件加载成功');
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => {
+                    console.error('加载Excel文件时出错:', error);
+                    alert('加载数据时出错，请稍后再试');
+                });
         });
 
         document.getElementById('searchButton').addEventListener('click', function() {
@@ -165,26 +176,31 @@
             }
 
             if (!workbook) {
-                alert('未加载');
+                alert('数据尚未加载完成，请稍后再试');
                 return;
             }
 
-            const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-            const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+            try {
+                const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
 
-            const headers = jsonData[0];
-            const rows = jsonData.slice(1);
-            const result = rows.find(row => row.includes(name));
+                const headers = jsonData[0];
+                const rows = jsonData.slice(1);
+                const result = rows.find(row => row.includes(name));
 
-            if (result) {
-                const resultHTML = result.map((item, index) => {
-                    const headerText = headers[index] === "姓名" ? "学生姓名" : headers[index];
-                    const contentText = item !== undefined ? item : '数据缺失';
-                    return `<div class="result-row"><span class="result-header">${headerText}:</span> <span class="result-content">${contentText}</span></div>`;
-                }).join('');
-                document.getElementById('result').innerHTML = `<div class="fade-in">${resultHTML}</div>`;
-            } else {
-                document.getElementById('result').innerHTML = `<div class="fade-in">未找到该生的信息</div>`;
+                if (result) {
+                    const resultHTML = result.map((item, index) => {
+                        const headerText = headers[index] === "姓名" ? "学生姓名" : headers[index];
+                        const contentText = item !== undefined ? item : '数据缺失';
+                        return `<div class="result-row"><span class="result-header">${headerText}:</span> <span class="result-content">${contentText}</span></div>`;
+                    }).join('');
+                    document.getElementById('result').innerHTML = `<div class="fade-in">${resultHTML}</div>`;
+                } else {
+                    document.getElementById('result').innerHTML = `<div class="fade-in">未找到该生的信息</div>`;
+                }
+            } catch (error) {
+                console.error('搜索过程中出错:', error);
+                document.getElementById('result').innerHTML = `<div class="fade-in">搜索过程中出错，请稍后再试</div>`;
             }
         });
     </script>
