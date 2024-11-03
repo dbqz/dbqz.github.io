@@ -29,22 +29,17 @@
         font-size: 16px;
         cursor: pointer;
     }
-    #result img {
-        max-width: 100%;
-        margin-top: 15px;
-    }
 </style>
 </head>
 <body>
 <div class="container">
     <h1>图片裁剪器</h1>
     <input type="file" id="imageInput" accept="image/*">
-    <button onclick="cropImage()">裁剪图片</button>
-    <div id="result"></div>
+    <button onclick="cropAndDownloadImage()">裁剪并下载图片</button>
 </div>
 
 <script>
-function cropImage() {
+function cropAndDownloadImage() {
     const input = document.getElementById('imageInput');
     const file = input.files[0];
     if (!file) {
@@ -58,32 +53,22 @@ function cropImage() {
         img.onload = function() {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            const targetWidth = 1320;
-            const targetHeight = 2868;
+            const targetHeight = 2868; // 目标高度
 
-            canvas.width = targetWidth;
-            canvas.height = targetHeight;
+            canvas.width = img.width; // 保持原始宽度
+            canvas.height = targetHeight; // 设置目标高度
 
-            // 裁剪图片
-            const x = 0;
+            // 从顶部开始裁剪
             const y = 0;
-            const width = Math.min(targetWidth, img.width);
-            const height = Math.min(targetHeight, img.height);
+            const height = img.height >= targetHeight ? targetHeight : img.height;
 
-            // 如果图片的高度大于目标高度，则从顶部开始裁剪
-            const cropY = img.height > targetHeight ? 0 : (img.height - targetHeight) / 2;
-            // 如果图片的宽度大于目标宽度，则从中部开始裁剪
-            const cropX = img.width > targetWidth ? (img.width - targetWidth) / 2 : 0;
+            ctx.drawImage(img, 0, y, img.width, height, 0, 0, img.width, targetHeight);
 
-            ctx.drawImage(img, cropX, cropY, width, height, x, y, targetWidth, targetHeight);
-
+            // 创建下载链接
             const link = document.createElement('a');
             link.href = canvas.toDataURL();
             link.download = 'cropped_image.png';
-            link.textContent = '下载图片';
-            document.getElementById('result').innerHTML = '';
-            document.getElementById('result').appendChild(link);
-            document.getElementById('result').appendChild(canvas);
+            link.click(); // 自动点击下载
         };
         img.src = event.target.result;
     };
