@@ -6,28 +6,44 @@
 <title>图片裁剪器</title>
 <style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Arial', sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
         margin: 0;
-        background-color: #f0f0f0;
+        background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
     }
     .container {
         text-align: center;
         padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
     }
     input[type="file"] {
         margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
     }
     button {
         padding: 10px 20px;
         font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
         cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #0056b3;
     }
 </style>
 </head>
@@ -53,7 +69,7 @@ function cropAndDownloadImage() {
         img.onload = function() {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            const targetHeight = 2868; // 目标高度
+            const targetHeight = 2730; // 目标高度
 
             canvas.width = img.width; // 保持原始宽度
             canvas.height = targetHeight; // 设置目标高度
@@ -67,7 +83,7 @@ function cropAndDownloadImage() {
             // 创建下载链接
             const link = document.createElement('a');
             link.href = canvas.toDataURL();
-            link.download = 'cropped_image.png';
+            link.download = 'iphone16pm.png';
             link.click(); // 自动点击下载
         };
         img.src = event.target.result;
