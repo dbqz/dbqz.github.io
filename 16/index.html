@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>图片裁剪器</title>
 <style>
+    /* 全局样式 */
     body {
         font-family: 'Arial', sans-serif;
         display: flex;
@@ -13,37 +14,86 @@
         height: 100vh;
         margin: 0;
         background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+        color: #333;
     }
+
+    /* 容器样式 */
     .container {
         text-align: center;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 15px;
-        background-color: #fff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .container:hover {
+        transform: scale(1.02);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 标题样式 */
     h1 {
+        font-size: 2.5em;
+        margin-bottom: 30px;
         color: #333;
-        margin-bottom: 20px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
+    /* 文件输入样式 */
     input[type="file"] {
-        margin-bottom: 15px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    button {
-        padding: 10px 20px;
+        padding: 15px 25px;
         font-size: 16px;
-        color: #fff;
-        background-color: #007bff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+        border: 2px solid #007bff;
+        border-radius: 10px;
+        background: #fff;
+        color: #007bff;
+        transition: border-color 0.3s ease, color 0.3s ease;
     }
+
+    input[type="file"]:hover {
+        border-color: #0056b3;
+        color: #0056b3;
+    }
+
+    /* 按钮样式 */
+    button {
+        padding: 15px 30px;
+        font-size: 18px;
+        color: #fff;
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
     button:hover {
-        background-color: #0056b3;
+        background: linear-gradient(135deg, #0056b3 0%, #003d8c 100%);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px);
+    }
+
+    button:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 600px) {
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        input[type="file"], button {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
     }
 </style>
 </head>
@@ -83,7 +133,7 @@ function cropAndDownloadImage() {
             // 创建下载链接
             const link = document.createElement('a');
             link.href = canvas.toDataURL();
-            link.download = 'iphone16pm.png';
+            link.download = 'cropped_image.png';
             link.click(); // 自动点击下载
         };
         img.src = event.target.result;
