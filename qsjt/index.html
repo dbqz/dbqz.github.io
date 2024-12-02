@@ -3,72 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>强盛集团 | 引领未来</title>
+    <title>黑玫瑰帮 | 掌控黑暗的力量</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(120deg, #1f4037, #99f2c8, #2c3e50);
-            background-size: 300% 300%;
-            animation: gradientMove 12s infinite alternate;
-            color: #fff;
+            background: radial-gradient(circle at center, #000, #1a1a1a 70%, #000);
+            color: #eaeaea;
             overflow-x: hidden;
-        }
-
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
         }
 
         header {
             text-align: center;
             padding: 4rem 2rem;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 2s ease-in-out forwards;
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
         }
 
         header h1 {
-            font-size: 3rem;
-            animation: textGlow 1.5s infinite alternate;
+            font-size: 4rem;
+            color: #ff0000;
+            text-shadow: 0 0 20px #ff0000, 0 0 30px #aa0000;
+            animation: glow 1.5s infinite alternate;
         }
 
         header p {
             font-size: 1.5rem;
+            color: #eaeaea;
             margin-top: 1rem;
-            animation: fadeInText 2.5s forwards;
         }
 
-        @keyframes textGlow {
-            from { text-shadow: 0 0 5px #fff, 0 0 15px #00e6ff; }
-            to { text-shadow: 0 0 20px #fff, 0 0 40px #00e6ff; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInText {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #ff0000; }
+            to { text-shadow: 0 0 40px #ff0000, 0 0 60px #aa0000; }
         }
 
         section {
             padding: 4rem 2rem;
             text-align: center;
-            animation: slideInUp 1.5s ease-out forwards;
         }
 
-        @keyframes slideInUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
+        .about-section h2,
+        .team-section h2,
+        .future-vision h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #ff3333;
+            text-shadow: 0 0 15px #ff3333, 0 0 30px #991111;
+        }
+
+        .about-section p,
+        .future-vision p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
         }
 
         .team {
@@ -80,20 +74,21 @@
         }
 
         .team-member {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+            background: #111;
+            border: 2px solid #ff3333;
+            border-radius: 10px;
             padding: 2rem;
             width: 280px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
             position: relative;
-            transition: all 0.5s ease;
-            transform-origin: center;
             overflow: hidden;
             cursor: pointer;
+            transition: all 0.4s ease;
         }
 
         .team-member:hover {
-            transform: rotate(5deg) scale(1.1);
-            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.2);
+            transform: scale(1.1) rotate(3deg);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
         }
 
         .team-member img {
@@ -108,90 +103,71 @@
 
         .team-member h3 {
             font-size: 1.8rem;
+            color: #ff3333;
             margin: 1rem 0;
         }
 
         .team-member p {
             font-size: 1rem;
-            opacity: 0;
-            animation: textAppear 0.8s forwards;
-        }
-
-        @keyframes textAppear {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            line-height: 1.5;
+            color: #ccc;
         }
 
         footer {
             text-align: center;
             padding: 2rem;
-            background: rgba(0, 0, 0, 0.8);
+            background: #000;
+            color: #ff3333;
             font-size: 0.9rem;
-            position: relative;
+            border-top: 2px solid #ff3333;
         }
 
         footer p {
-            animation: glowFooter 2s infinite alternate;
-        }
-
-        @keyframes glowFooter {
-            from { text-shadow: 0 0 5px #fff; }
-            to { text-shadow: 0 0 15px #fff; }
+            text-shadow: 0 0 10px #ff3333;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>强盛集团</h1>
-    <p>引领未来，开创辉煌</p>
+    <h1>黑玫瑰帮</h1>
+    <p>掌控黑暗，支配一切</p>
 </header>
 
 <section class="about-section">
-    <h2>关于强盛集团</h2>
-    <p>我们是全球顶尖科技与商业领域的领导者，专注于创新、可持续发展及全球合作。</p>
+    <h2>关于黑玫瑰帮</h2>
+    <p>黑玫瑰帮是地下世界的统治者，冷酷无情、组织严密，掌控着黑市、情报和力量，任何对手都无法撼动我们的霸主地位。</p>
 </section>
 
 <section class="team-section">
-    <h2>人物介绍</h2>
+    <h2>势力核心成员</h2>
     <div class="team">
         <div class="team-member">
-            <img src="https://via.placeholder.com/150" alt="李强">
-            <h3>李强</h3>
-            <p>首席执行官，技术革新引领者，擅长战略规划。</p>
+            <img src="https://via.placeholder.com/150" alt="教父">
+            <h3>教父</h3>
+            <p>黑玫瑰帮创始人，掌控全局，睿智冷静。</p>
         </div>
         <div class="team-member">
-            <img src="https://via.placeholder.com/150" alt="王盛">
-            <h3>王盛</h3>
-            <p>首席技术官，人工智能与大数据专家。</p>
+            <img src="https://via.placeholder.com/150" alt="玫瑰夫人">
+            <h3>玫瑰夫人</h3>
+            <p>情报头目，深谙人心，冷艳致命。</p>
         </div>
         <div class="team-member">
-            <img src="https://via.placeholder.com/150" alt="张华">
-            <h3>张华</h3>
-            <p>首席运营官，擅长企业管理与市场拓展。</p>
+            <img src="https://via.placeholder.com/150" alt="铁手">
+            <h3>铁手</h3>
+            <p>武装指挥官，力量无敌，行动果断。</p>
         </div>
     </div>
 </section>
 
 <section class="future-vision">
-    <h2>未来愿景</h2>
-    <p>持续专注技术创新、可持续发展、全球合作，开创更加辉煌的未来。</p>
+    <h2>未来统治计划</h2>
+    <p>我们的目标是扩展势力，征服新的领土，建立属于黑玫瑰帮的不朽王朝。</p>
 </section>
 
 <footer>
-    <p>© 2024 强盛集团版权所有</p>
+    <p>© 2024 黑玫瑰帮 版权所有</p>
 </footer>
-
-<script>
-    document.querySelectorAll('.team-member').forEach(member => {
-        member.addEventListener('mouseenter', () => {
-            member.style.transform = 'rotate(360deg)';
-        });
-        member.addEventListener('mouseleave', () => {
-            member.style.transform = 'rotate(0)';
-        });
-    });
-</script>
 
 </body>
 </html>
