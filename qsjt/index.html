@@ -5,53 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>强盛集团 - 企业官网</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: 'Microsoft YaHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Noto Sans SC', 'Noto Serif SC', 'Microsoft YaHei', sans-serif;
             background-color: #111;
             color: #f0f0f0;
-            line-height: 1.6;
+            line-height: 1.8;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
+
         header {
-            background-color: #000;
+            background: linear-gradient(90deg, #000, #1a1a1a);
             padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(255, 0, 0, 0.1);
+            box-shadow: 0 2px 15px rgba(255, 0, 0, 0.3);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
         }
+
         nav ul {
             display: flex;
             justify-content: center;
-            list-style-type: none;
+            list-style: none;
         }
+
         nav ul li {
-            margin: 0 15px;
+            margin: 0 20px;
         }
+
         nav ul li a {
             color: #fff;
             text-decoration: none;
             font-size: 18px;
+            position: relative;
             transition: color 0.3s ease;
         }
+
         nav ul li a:hover {
             color: #ff3333;
         }
+
+        nav ul li a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #ff3333;
+            transition: width 0.3s;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
         .hero {
-            background: url('https://source.unsplash.com/random/1600x900?dark') no-repeat center center/cover;
-            height: 60vh;
+            background: url('https://source.unsplash.com/random/1600x900?business') no-repeat center center/cover;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             position: relative;
+            animation: fadeInBackground 3s ease-in-out;
         }
+
+        @keyframes fadeInBackground {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
         .hero::before {
             content: '';
             position: absolute;
@@ -59,96 +102,148 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.6);
         }
+
         .hero-content {
             position: relative;
             z-index: 1;
+            animation: fadeInText 2s ease-in-out;
         }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
+            font-size: 5rem;
             color: #ff3333;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7);
+            animation: zoomIn 2s ease;
         }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
         .hero p {
-            font-size: 1.5rem;
-            max-width: 600px;
+            font-size: 1.8rem;
+            max-width: 700px;
             margin: 0 auto;
         }
+
         section {
-            padding: 60px 0;
+            padding: 80px 0;
         }
+
         h2 {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 40px;
             color: #ff3333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
         }
+
         .about-content, .goals-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 40px;
         }
+
         .about-text, .goals-text {
             flex: 1;
             padding-right: 40px;
         }
+
         .about-image, .goals-image {
             flex: 1;
-            text-align: right;
         }
+
         .about-image img, .goals-image img {
             max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
         }
+
+        .about-image img:hover, .goals-image img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 30px rgba(255, 0, 0, 0.5);
+        }
+
         .team-members {
             display: flex;
-            justify-content: space-around;
             flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
         }
+
         .team-member {
             background-color: #1a1a1a;
             border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 30px;
+            padding: 30px;
             width: 300px;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
         }
+
         .team-member:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 30px rgba(255, 0, 0, 0.4);
         }
+
         .team-member img {
             width: 200px;
             height: 200px;
             border-radius: 50%;
             margin-bottom: 20px;
-            border: 3px solid #ff3333;
-            transition: transform 0.5s ease;
+            border: 5px solid #ff3333;
+            transition: transform 0.6s ease;
         }
+
         .team-member:hover img {
             transform: rotate(360deg);
         }
+
         .team-member h3 {
             color: #ff3333;
             margin-bottom: 10px;
         }
+
         footer {
-            background-color: #000;
+            background: linear-gradient(90deg, #000, #1a1a1a);
             color: #fff;
             text-align: center;
             padding: 20px 0;
             margin-top: 40px;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .fade-in {
-            animation: fadeIn 1s ease-out;
+            animation: fadeIn 1.2s ease-out;
         }
     </style>
 </head>
@@ -233,27 +328,5 @@
             <p>&copy; 2024 强盛集团 版权所有</p>
         </div>
     </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const fadeElems = document.querySelectorAll('.fade-in');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            });
-
-            fadeElems.forEach(elem => {
-                elem.style.opacity = 0;
-                elem.style.transform = 'translateY(20px)';
-                elem.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
-                observer.observe(elem);
-            });
-        });
-    </script>
 </body>
 </html>
-
