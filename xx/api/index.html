@@ -2,12 +2,9 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Excel 到 JSON 转换</title>
+   
 </head>
 <body>
-    <div id="result"></div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/jszip.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script>
         let workbook;
@@ -22,6 +19,10 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
+        function outputJSON(data) {
+            document.body.textContent = JSON.stringify(data);
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const filePath = 'https://cn.dbqz.xyz/xx/sqlhtmlwebapp.xlsx';
 
@@ -33,21 +34,23 @@
                     const nameFromURL = getParameterByName('name');
                     if (nameFromURL) {
                         searchForName(nameFromURL);
+                    } else {
+                        outputJSON({ error: '未提供姓名参数' });
                     }
                 })
                 .catch(error => {
                     console.error('错误:', error);
-                    document.getElementById('result').textContent = JSON.stringify({ error: '加载数据时发生错误' });
+                    outputJSON({ error: '加载数据时发生错误' });
                 });
         });
 
         function searchForName(name) {
             if (name === '') {
-                document.getElementById('result').textContent = JSON.stringify({ error: '请输入姓名' });
+                outputJSON({ error: '请输入姓名' });
                 return;
             }
             if (!workbook) {
-                document.getElementById('result').textContent = JSON.stringify({ error: '数据未加载' });
+                outputJSON({ error: '数据未加载' });
                 return;
             }
             const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -63,9 +66,9 @@
                         resultJSON[headerText] = result[index];
                     }
                 });
-                document.getElementById('result').textContent = JSON.stringify(resultJSON, null, 2);
+                outputJSON(resultJSON);
             } else {
-                document.getElementById('result').textContent = JSON.stringify({ error: '未找到匹配的学生信息' });
+                outputJSON({ error: '未找到匹配的学生信息' });
             }
         }
     </script>
