@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>id</title>
+    <title>Excel to JSON</title>
 </head>
 <body>
     <div id="result"></div>
@@ -12,7 +12,6 @@
     <script>
         let workbook;
 
-        
         function getParameterByName(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, '\\$&');
@@ -26,12 +25,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             const filePath = 'https://cn.dbqz.xyz/xx/sqlhtmlwebapp.xlsx';
 
-            
             fetch(filePath)
                 .then(response => response.arrayBuffer())
                 .then(data => {
                     workbook = XLSX.read(data, { type: 'array' });
-                    
                     
                     const nameFromURL = getParameterByName('name');
                     if (nameFromURL) {
@@ -41,14 +38,13 @@
                 .catch(error => console.error('Error:', error));
         });
 
-        
         function searchForName(name) {
             if (name === '') {
-                alert('请输入姓名');
+                console.error('请输入姓名');
                 return;
             }
             if (!workbook) {
-                alert('未加载');
+                console.error('未加载');
                 return;
             }
             const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -57,16 +53,17 @@
             const rows = jsonData.slice(1);
             const result = rows.find(row => row.includes(name));
             if (result) {
-                const resultHTML = result.map((item, index) => {
-                    const headerText = headers[index] === "姓名" ? "学生姓名" : headers[index];
-                    const contentText = item !== undefined ? item : '数据缺失';
-                    return `<div><span class="result-header">${headerText}:</span> <span class="result-content">${contentText}</span></div>`;
-                }).join('');
-                document.getElementById('result').innerHTML = resultHTML;
+                const resultJSON = {};
+                headers.forEach((header, index) => {
+                    const headerText = header === "姓名" ? "学生姓名" : header;
+                    resultJSON[headerText] = result[index] !== undefined ? result[index] : '数据缺失';
+                });
+                document.getElementById('result').textContent = JSON.stringify(resultJSON, null, 2);
             } else {
-                document.getElementById('result').innerHTML = '<div>API错误</div>';
+                document.getElementById('result').textContent = JSON.stringify({ error: 'API错误' });
             }
         }
     </script>
 </body>
 </html>
+
