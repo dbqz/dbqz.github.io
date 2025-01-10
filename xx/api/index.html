@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Excel to JSON</title>
+    <title>Excel 到 JSON 转换</title>
 </head>
 <body>
     <div id="result"></div>
@@ -35,16 +35,19 @@
                         searchForName(nameFromURL);
                     }
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => {
+                    console.error('错误:', error);
+                    document.getElementById('result').textContent = JSON.stringify({ error: '加载数据时发生错误' });
+                });
         });
 
         function searchForName(name) {
             if (name === '') {
-                console.error('请输入姓名');
+                document.getElementById('result').textContent = JSON.stringify({ error: '请输入姓名' });
                 return;
             }
             if (!workbook) {
-                console.error('未加载');
+                document.getElementById('result').textContent = JSON.stringify({ error: '数据未加载' });
                 return;
             }
             const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -56,11 +59,13 @@
                 const resultJSON = {};
                 headers.forEach((header, index) => {
                     const headerText = header === "姓名" ? "学生姓名" : header;
-                    resultJSON[headerText] = result[index] !== undefined ? result[index] : '数据缺失';
+                    if (result[index] !== undefined && result[index] !== '') {
+                        resultJSON[headerText] = result[index];
+                    }
                 });
                 document.getElementById('result').textContent = JSON.stringify(resultJSON, null, 2);
             } else {
-                document.getElementById('result').textContent = JSON.stringify({ error: 'API错误' });
+                document.getElementById('result').textContent = JSON.stringify({ error: '未找到匹配的学生信息' });
             }
         }
     </script>
