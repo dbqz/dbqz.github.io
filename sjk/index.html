@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supabase Query</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+  <h1>查询学生信息</h1>
+  <p>通过 URL 参数 `?name=姓名` 查询学生信息</p>
+  <div id="result">加载中...</div>
+
+  <script>
+    // 从 URL 中获取查询参数
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name');
+
+    // 确保在初始化后使用 Supabase
+    (async function () {
+      // 配置 Supabase
+      const supabaseUrl = 'https://emhugrngatxxehjlnypg.supabase.co'; // 替换为你的 Supabase URL
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtaHVncm5nYXR4eGVoamxueXBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzczNTE0MDksImV4cCI6MjA1MjkyNzQwOX0.na7f3m-ehiSRgWCEQMkDhzhIiys0C6UvZm8woRsMk1Y'; // 替换为你的 Supabase Key
+      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+      const resultDiv = document.getElementById('result');
+
+      // 检查是否提供了 `name` 参数
+      if (!name) {
+        resultDiv.textContent = '请在 URL 中提供姓名参数，例如 ?name=李佳琦';
+        return;
+      }
+
+      try {
+        // 替换 'xx' 为你的表名，'姓名' 为你的字段名
+        const { data, error } = await supabase
+          .from('xx')
+          .select('*')
+          .eq('姓名', name);
+
+        if (error) {
+          throw error;
+        }
+
+        if (data.length === 0) {
+          resultDiv.textContent = `未找到姓名为 "${name}" 的数据。`;
+        } else {
+          resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        }
+      } catch (error) {
+        console.error('查询错误:', error);
+        resultDiv.textContent = '查询失败，请检查控制台日志。';
+      }
+    })();
+  </script>
+</body>
+</html>
